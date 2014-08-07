@@ -11,42 +11,34 @@
     <title>Synopsis</title>
 
     <indexterm><primary>serial communications</primary></indexterm>
+    <para>
+	從最早期以串列線作為使用者輸入輸出的 &unix; 機器開始，&unix; 一直都支援串列通訊，當時一般的終端機，如每秒 10 個字元的印表機和鍵盤，到現在已經改變很多。本章涵蓋一些可以用在 &os; 的串列通訊的方法。</para>
 
-    <para>&unix; has always had support for serial communications as
-      the very first &unix; machines relied on serial lines for user
-      input and output.  Things have changed a lot from the days
-      when the average terminal consisted of a 10-character-per-second
-      serial printer and a keyboard.  This chapter covers some of the
-      ways serial communications can be used on &os;.</para>
-
-    <para>After reading this chapter, you will know:</para>
+    <para>讀完本章，你將知道</para>
 
     <itemizedlist>
       <listitem>
-	<para>How to connect terminals to a &os; system.</para>
+	<para>如何透過終端機連線到 &os; 系統。</para>
       </listitem>
       <listitem>
-	<para>How to use a modem to dial out to remote hosts.</para>
+	<para>如何利用 modem 撥號到遠端主機。</para>
       </listitem>
       <listitem>
-	<para>How to allow remote users to login to a &os; system
-	  with a modem.</para>
+	<para>如何允許遠端的使用者透過 modem 登入 &os; 系統</para>
       </listitem>
       <listitem>
-	<para>How to boot a &os; system from a serial console.</para>
+	<para>如何從 serial console 將 &os; 開機。</para>
       </listitem>
     </itemizedlist>
 
-    <para>Before reading this chapter, you should:</para>
+    <para>在讀本章之前，你應該:</para>
 
     <itemizedlist>
       <listitem>
-	<para>Know how to <link linkend="kernelconfig"> configure and
-	    install a custom kernel</link>.</para>
+	<para>知道如何 <link linkend="kernelconfig"> 設定和安裝一個客制化的核心</link>。</para>
       </listitem>
       <listitem>
-	<para>Understand <link linkend="basics"> &os; permissions
-	    and processes</link>.</para>
+	<para>瞭解<link linkend="basics"> &os; 權限和程序</link>.</para>
       </listitem>
       <listitem>
 	<para>Have access to the technical manual for the serial
