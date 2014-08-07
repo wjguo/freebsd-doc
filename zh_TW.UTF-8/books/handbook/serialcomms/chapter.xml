@@ -5,7 +5,7 @@
      $FreeBSD$
 -->
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="serialcomms">
-  <title>Serial Communications</title>
+  <title>串列通訊</title>
 
   <sect1 xml:id="serial-synopsis">
     <title>Synopsis</title>
@@ -48,10 +48,9 @@
   </sect1>
 
   <sect1 xml:id="serial">
-    <title>Serial Terminology and Hardware</title>
+    <title>串列術語與硬體</title>
 
-    <para>The following terms are often used in serial
-      communications:</para>
+    <para>下列是時常被使用在串列通訊的用詞:</para>
     <variablelist>
       <varlistentry>
 	<term><acronym>bps</acronym></term>
@@ -88,26 +87,18 @@
       <varlistentry>
 	<term><acronym>RS-232</acronym></term>
 	<listitem>
-	  <para>The original standard which defined hardware serial
-	    communications.  It has since been renamed to
+	  <para>原本定義硬體串列通訊的標準，它已經被重新命名為
 	    <acronym>TIA-232</acronym>.</para>
 	</listitem>
       </varlistentry>
     </variablelist>
 
-    <para>When referring to communication data rates, this section
-      does not use the term <firstterm>baud</firstterm>.  Baud refers
-      to the number of electrical state transitions made in a period
-      of time, while <acronym>bps</acronym> is the correct term to
-      use.</para>
+    <para>當提及通訊資料速率，本節將不使用<firstterm>鮑</firstterm>。鮑是指一段時間電子狀態轉換的次數；實際上，而 <acronym>bps</acronym> 才是通訊資料速率的正確用詞。</para>
 
-    <para>To connect a serial terminal to a &os; system, a serial port
-      on the computer and the proper cable to connect to the serial
-      device are needed.  Users who are already familiar with serial
-      hardware and cabling can safely skip this section.</para>
+    <para>為了透過串列終端機連到 &os; 系統，電腦必須要有一個串列阜和適當的串列線，對於串列硬體和接線方式很熟的讀者，可以放心地略過本節。</para>
 
     <sect2 xml:id="term-cables-null">
-      <title>Serial Cables and Ports</title>
+      <title>串列纜線和串列阜</title>
 
       <para>There are several different kinds of serial cables.  The
 	two most common types are null-modem cables and standard
