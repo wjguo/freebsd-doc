@@ -50,15 +50,14 @@
   <sect1 xml:id="serial">
     <title>串列術語與硬體</title>
 
-    <para>下列是時常被使用在串列通訊的用詞:</para>
+    <para>下列是時常被使用在串列通訊的專有名詞:</para>
     <variablelist>
       <varlistentry>
 	<term><acronym>bps</acronym></term>
 	<listitem>
 	  <para>Bits per
 	    Second<indexterm><primary>bits-per-second</primary></indexterm>
-	    (<acronym>bps</acronym>) is the rate at which data is
-	    transmitted.</para>
+	    (<acronym>bps</acronym>) 是每秒資料傳輸速率</para>
 	</listitem>
       </varlistentry>
 
@@ -67,9 +66,8 @@
 	<listitem>
 	  <para>Data Terminal
 	    Equipment<indexterm><primary>DTE</primary></indexterm>
-	    (<acronym>DTE</acronym>) is one of two endpoints in a
-	    serial communication.  An example would be a
-	    computer.</para>
+	    (<acronym>DTE</acronym>) 是串列通訊中的兩端點之一，例如電腦。
+	    </para>
 	</listitem>
       </varlistentry>
 
@@ -78,9 +76,8 @@
 	<listitem>
 	  <para>Data Communications
 	    Equipment<indexterm><primary>DCE</primary></indexterm>
-	    (<acronym>DTE</acronym>) is the other endpoint in a
-	    serial communication.  Typically, it is a modem or serial
-	    terminal.</para>
+	    (<acronym>DTE</acronym>) 是串列通訊的另一個端點，基本上，它可能是一個 modem 或串列終端。
+	    </para>
 	</listitem>
       </varlistentry>
 
@@ -100,27 +97,17 @@
     <sect2 xml:id="term-cables-null">
       <title>串列纜線和串列阜</title>
 
-      <para>There are several different kinds of serial cables.  The
-	two most common types are null-modem cables and standard
-	<acronym>RS-232</acronym> cables.  The documentation for the
-	hardware should describe the type of cable required.</para>
+      <para>串列覽線有許多不同的類型，兩種最常見的是 null-modem 纜線和標準 
+	<acronym>RS-232</acronym> 纜線。你的串列硬體文件應該會描述需要哪一種類型的纜線。</para>
 
-      <para>These two types of cables differ in how the wires are
-	connected to the connector.  Each wire represents a signal,
-	with the defined signals summarized in <xref
-	  linkend="serialcomms-signal-names"/>.  A standard serial
-	cable passes all of the <acronym>RS-232C</acronym> signals
-	straight through.  For example, the <quote>Transmitted
-	  Data</quote> pin on one end of the cable goes to the
-	<quote>Transmitted Data</quote> pin on the other end.  This is
-	the type of cable used to connect a modem to the &os; system,
-	and is also appropriate for some terminals.</para>
+      <para>這兩種類型的線差別在於內部的線如何到連接頭，每一條線表示一個預先定義的訊號，整理在
+	<xref linkend="serialcomms-signal-names"/>。一個標準的串列纜線直接傳送全部<acronym>RS-232C</acronym> 訊號。例如，纜線其中一端的<quote>Transmitted
+	  Data</quote> 連到另一端的<quote>Transmitted Data</quote>。 這是用連接 modem 到 &os; 系統的纜線類型，對於某些終端也是最適合的
+	</para>
 
-      <para>A null-modem cable switches the <quote>Transmitted
-	  Data</quote> pin of the connector on one end with the
-	<quote>Received Data</quote> pin on the other end.  The
-	connector can be either a <acronym>DB-25</acronym> or a
-	<acronym>DB-9</acronym>.</para>
+      <para>一個 null-modem 纜線轉換成成連接頭一端的<quote>Transmitted
+	  Data</quote> 連接到另一端的<quote>Received Data</quote>。連接頭可以是<acronym>DB-25</acronym>，不然就是<acronym>DB-9</acronym>。
+	  <para>
 
       <para>A null-modem cable can be constructed using the pin
 	connections summarized in <xref linkend="nullmodem-db25"/>,
