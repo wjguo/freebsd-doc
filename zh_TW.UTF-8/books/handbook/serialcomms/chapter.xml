@@ -50,7 +50,7 @@
   <sect1 xml:id="serial">
     <title>串列術語與硬體</title>
 
-    <para>下列是時常被使用在串列通訊的專有名詞:</para>
+    <para>下列是常用的串列通訊專有名詞:</para>
     <variablelist>
       <varlistentry>
 	<term><acronym>bps</acronym></term>
@@ -109,15 +109,12 @@
 	  Data</quote> 連接到另一端的<quote>Received Data</quote>。連接頭可以是<acronym>DB-25</acronym>，不然就是<acronym>DB-9</acronym>。
 	  <para>
 
-      <para>A null-modem cable can be constructed using the pin
-	connections summarized in <xref linkend="nullmodem-db25"/>,
-	<xref linkend="nullmodem-db9"/>, and <xref
-	  linkend="nullmodem-db9-25"/>.  While the standard calls for
-	a straight-through pin 1 to pin 1 <quote>Protective
-	  Ground</quote> line, it is often omitted.  Some terminals
-	work using only pins 2, 3, and 7, while others require
-	different configurations.  When in doubt, refer to the
-	documentation for the hardware.</para>
+      <para>null-modem 纜線可以使用<xref linkend="nullmodem-db25"/>,
+	  <xref linkend="nullmodem-db9"/>和<xref
+	  linkend="nullmodem-db9-25"/>的腳位對應來製作。當標準規定腳位 1 直接對接，<quote>Protective
+	  Ground</quote> 線時常被省略。在一些不同的設定下，有一些終端只有使用到腳位 2、3、7。nals
+	  如果有疑惑，請參考串列硬體的文件。
+	  </para>
 
       <indexterm>
 	<primary>null-modem cable</primary>
@@ -456,50 +453,39 @@
 	  to the other single pin.</para>
       </note>
 
-      <para>Serial ports are the devices through which data is
-	transferred between the &os; host computer and the terminal.
-	Several kinds of serial ports exist.  Before purchasing or
-	constructing a cable, make sure it will fit the ports on the
-	terminal and on the &os; system.</para>
+      <para>串列阜是資料在 &os; 主機電腦和終端傳輸經過的設備。存在好幾種串列阜，在購買或打造一條纜線之前，確定它能適合終端和&os;系統上的串列阜。
+	</para>
 
-      <para>Most terminals have <acronym>DB-25</acronym> ports.
-	Personal computers may have <acronym>DB-25</acronym> or
-	<acronym>DB-9</acronym> ports.  A multiport serial card may
-	have <acronym>RJ-12</acronym> or <acronym>RJ-45/</acronym>
-	ports.  See the documentation that accompanied the hardware
-	for specifications on the kind of port or visually verify the
-	type of port.</para>
+      <para>大部分的終端提供<acronym>DB-25</acronym>串列阜。
+	個人電腦可能提供<acronym>DB-25</acronym>或
+	<acronym>DB-9</acronym>串列阜。一個多阜的串列卡可能提供
+	<acronym>RJ-12</acronym>或<acronym>RJ-45/</acronym>
+	串列阜。請見該串列阜硬體隨附的文件，或者肉眼辨識串列阜的類別。</para>
 
-      <para>In &os;, each serial port is accessed through an entry in
-	<filename>/dev</filename>.  There are two different kinds of
-	entries:</para>
+      <para>在 &os;，每一個串列阜需透過在
+	 <filename>/dev</filename>下的節點去存取。有兩種不同的節點:
+	  </para>
 
       <itemizedlist>
 	<listitem>
-	  <para>Call-in ports are named
+	  <para>Call-in ports 命名為
 	    <filename>/dev/ttyu<replaceable>N</replaceable></filename>
-	    where <replaceable>N</replaceable> is the port number,
-	    starting from zero.  If a terminal is connected to the
-	    first serial port (<filename>COM1</filename>), use
-	    <filename>/dev/ttyu0</filename> to refer to the terminal.
-	    If the terminal is on the second serial port
-	    (<filename>COM2</filename>), use
-	    <filename>/dev/ttyu1</filename>, and so forth.  Generally,
-	    the call-in port is used for terminals.  Call-in ports
-	    require that the serial line assert the <quote>Data
-	      Carrier Detect</quote> signal to work correctly.</para>
+	    ，而<replaceable>N</replaceable> 是阜的號碼，從零開始。
+	    如果終端連接到第一個串列阜 (<filename>COM1</filename>)，使用
+	    <filename>/dev/ttyu0</filename>與該終端通訊。
+	    如果終端正在第二個串列阜上 (<filename>COM2</filename>)，則使用
+	    <filename>/dev/ttyu1</filename>，以此類推。一般來說，
+	    call-in 阜　被用在終端。為了正常運作，Call-in 阜要求串列線具備<quote>Data　Carrier Detect</quote> 訊號。
+		</para>
 	</listitem>
 
 	<listitem>
-	  <para>Call-out ports are named
+	  <para>Call-ou 阜命名為
 	    <filename>/dev/cuau<replaceable>N</replaceable></filename>
 	    on &os; versions 10.x and higher and
 	    <filename>/dev/cuad<replaceable>N</replaceable></filename>
-	    on &os; versions 9.x and lower.  Call-out ports are
-	    usually not used for terminals, but are used for modems.
-	    The call-out port can be used if the serial cable or the
-	    terminal does not support the <quote>Data Carrier
-	      Detect</quote> signal.</para>
+	    on &os; versions 9.x and lower.  Call-out 阜通常不用在終端，而是用在 modem。Call-out 阜可以被用在當串列線或者終端不支援<quote>Data Carrier Detect</quote>訊號。
+	  </para>
 	</listitem>
       </itemizedlist>
 
@@ -527,24 +513,22 @@
     </sect2>
 
     <sect2 xml:id="serial-hw-config">
-      <title>Serial Port Configuration</title>
+      <title>串列阜設定</title>
 
-      <para>By default, &os; supports four serial ports which are
-	commonly known as <filename>COM1</filename>,
-	<filename>COM2</filename>, <filename>COM3</filename>, and
-	<filename>COM4</filename>.  &os; also supports dumb multi-port
-	serial interface cards, such as the BocaBoard 1008 and 2016,
-	as well as more intelligent multi-port cards such as those
-	made by Digiboard.  However, the default kernel only looks for
-	the standard <filename>COM</filename> ports.</para>
+      <para>預設下，&os; 支援四種已知的串列阜<filename>COM1</filename>、
+	<filename>COM2</filename>、<filename>COM3</filename>、
+	<filename>COM4</filename>。  &os; 也支援 dumb multi-port
+	串列介面卡，例如：　BocaBoard 1008 and 2016，還有 Digiboard 製造的智慧多阜卡。然而，預設核心只會搜尋標準<filename>COM</filename>阜。
+	 </para>
 
-      <para>To see if the system recognizes the serial ports, look for
-	system boot messages that start with
-	<literal>uart</literal>:</para>
+ 	<para>  
+	為了看出系統是不是可辨識出串列阜，搜尋系統開機訊息中與
+	<literal>uart</literal>有關的部份:</para>
 
       <screen>&prompt.root; <userinput>grep uart /var/run/dmesg.boot</userinput></screen>
 
-      <para>If the system does not recognize all of the needed serial
+      <para>
+	  If the system does not recognize all of the needed serial
 	ports, additional entries can be added to
 	<filename>/boot/device.hints</filename>.  This file already
 	contains <literal>hint.uart.0.*</literal> entries for
@@ -560,24 +544,14 @@
       <indexterm><primary><filename>ttyu</filename></primary></indexterm>
       <indexterm><primary><filename>cuau</filename></primary></indexterm>
 
-      <para>To determine the default set of terminal
-	<acronym>I/O</acronym> settings used by the port, specify its
-	device name.  This example determines the settings for the
-	call-in port on <filename>COM2</filename>:</para>
-
+      <para>為了決定 Port 使用的預設終端<filename>COM2</filename>設定，指定它的設備名字。下面的範例決定在 <filename>COM2</filename> 上的 call-in port 設定:
+	  </para>
       <screen>&prompt.root; <userinput>stty -a -f /dev/<replaceable>ttyu1</replaceable></userinput></screen>
 
-      <para>System-wide initialization of serial devices is controlled
-	by <filename>/etc/rc.d/serial</filename>.  This file affects
-	the default settings of serial devices.  To change the
-	settings for a device, use <command>stty</command>.  By
-	default, the changed settings are in effect until the device
-	is closed and when the device is reopened, it goes back to the
-	default set.  To permanently change the default set, open and
-	adjust the settings of the initialization device.  For
-	example, to turn on <option>CLOCAL</option> mode, 8 bit
-	communication, and <option>XON/XOFF</option> flow control for
-	<filename>ttyu5</filename>, type:</para>
+      <para>系統層級的串列設備初始化被<filename>/etc/rc.d/serial</filename>控制。這個檔案影響串列裝置的預設設定。為了改變一個裝置的設定， 
+	  可以利用 <command>stty</command>。預設下，設定改變的影響只有在裝置關閉前有效，當裝置被重新開啟，設定將回到預設值。
+	  為了永久地改變預設設定，開啟並且調整 init 裝置的設定。例如，開啟<filename>ttyu5</filename>的<option>CLOCAL</option>模式、8 bit通訊、<option>XON/XOFF</option>流量控制，輸入:
+	  </para>
 
       <screen>&prompt.root; <userinput>stty -f /dev/ttyu5.init clocal cs8 ixon ixoff</userinput></screen>
 
@@ -586,16 +560,14 @@
 	<secondary><filename>rc.serial</filename></secondary>
       </indexterm>
 
-      <para>To prevent certain settings from being changed by an
-	application, make adjustments to the locking device.  For
-	example, to lock the speed of <filename>ttyu5</filename> to
-	57600&nbsp;bps, type:</para>
+      <para>為了防止應用程式試圖想改變設定，可以對 locking 裝置調整。
+		例如，為了將<filename>ttyu5</filename>固定在57600&nbsp;bps，輸入：
+	  </para>
 
       <screen>&prompt.root; <userinput>stty -f /dev/ttyu5.lock 57600</userinput></screen>
 
-      <para>Now, any application that opens <filename>ttyu5</filename>
-	and tries to change the speed of the port will be stuck with
-	57600&nbsp;bps.</para>
+      <para>從今以後，任何想要開啟並改變<filename>ttyu5</filename>速率的程式，將一直停在 57600&nbsp;bps。
+	  </para>
     </sect2>
   </sect1>
 
