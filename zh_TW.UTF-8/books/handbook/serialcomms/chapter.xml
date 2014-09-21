@@ -589,29 +589,20 @@
 
     <indexterm><primary>terminals</primary></indexterm>
 
-    <para>Terminals provide a convenient and low-cost way to access
-      a &os; system when not at the computer's console or on a
-      connected network.  This section describes how to use terminals
-      with &os;.</para>
+    <para>當不在電腦前或已連線的電腦網路情況下，終端提供一個方便而且低花費的方法去存取&os;系統，本節描述如何使用終端與&os;互動
+	</para>
 
-    <para>The original &unix; systems did not have consoles.  Instead,
-      users logged in and ran programs through terminals that were
-      connected to the computer's serial ports.</para>
+    <para>最初的 &unix; 並沒有 console。反而，使用者透過連到電腦串列阜的終端登入並執行程式
+	</para>
 
-    <para>The ability to establish a login session on a serial port
-      still exists in nearly every &unix;-like operating system
-      today, including &os;.  By using a terminal attached to an
-      unused serial port, a user can log in and run any text program
-      that can normally be run on the console or in an
-      <command>xterm</command> window.</para>
+    <para>至今幾乎每一個&unix;-like作業系統仍保留透過串列阜建立一個登入連線的能力，包括&os;，
+	透過附屬在閒置的串列阜終端，使用者可以登入，並且執行跟在 console 或者一個 <command>xterm</command>視窗一模一樣的文字程式，
+    </para>
 
-    <para>Many terminals can be attached to a &os; system.  An older
-      spare computer can be used as a terminal wired into a more
-      powerful computer running &os;.  This can turn what might
-      otherwise be a single-user computer into a powerful
-      multiple-user system.</para>
+    <para>許多終端可以被連結到&os;系統。一個叫老的備用電腦可以被當成一個終端，連接到能力比較強的 &os;，這將使單人電腦變成多人電腦。
+    </para>
 
-    <para>&os; supports three types of terminals:</para>
+    <para>&os; 支援三種型態的終端:</para>
 
     <variablelist>
       <varlistentry>
@@ -625,73 +616,53 @@
 	    terminals connect to a computer that runs the needed
 	    programs.</para>
 
-	  <para>There are hundreds of kinds of dumb terminals made by
-	    many manufacturers, and just about any kind will work with
-	    &os;.  Some high-end terminals can even display graphics,
-	    but only certain software packages can take advantage of
-	    these advanced features.</para>
+	  <para>有上千種各種製造商的簡易終端，其中大部分可以與 &os; 正常互動。有些高階的終端甚至可以顯示圖形，但是只有某些軟體套件可以使用到這些進階功能。
+		</para>
 
-	  <para>Dumb terminals are popular in work environments where
-	    workers do not need access to graphical
-	    applications.</para>
+	  <para>Dumb terminals 在一些不需要圖形應用程式的工作環境非常熱門功能。
+	  </para>
 	</listitem>
       </varlistentry>
 
       <varlistentry>
 	<term>Computers Acting as Terminals</term>
 	<listitem>
-	  <para>Since a dumb terminal has just enough ability to
-	    display, send, and receive text, any spare computer can
-	    be a dumb terminal.  All that is needed is the proper
-	    cable and some <firstterm>terminal emulation</firstterm>
-	    software to run on the computer.</para>
+	  <para>從簡易終端有剛剛好足夠的能力在顯示、傳送和接收文字，任何閒置的電腦可以成為一個簡易終端，只需要一條適當地纜線與在電腦上執行<firstterm>終端模擬</firstterm>軟體</para>
 
-	  <para>This configuration can be useful.  For example, if one
-	    user is busy working at the &os; system's console, another
-	    user can do some text-only work at the same time from a
-	    less powerful personal computer hooked up as a terminal to
-	    the &os; system.</para>
+	  <para>這個設定檔將非常有用，例如，如果有一個使用者在忙於&os;系統的 console，同時，其他使用者可以透過效能中等的電腦透過終端到 &os; 系統做文字處理，
+		</para>
+	  <para>
+	  在 base 系統至少有兩個通用工具可以用進行串列連線:
+	    &man.cu.1; 和 &man.tip.1;。</para>
 
-	  <para>There are at least two utilities in the base-system of
-	    &os; that can be used to work through a serial connection:
-	    &man.cu.1; and &man.tip.1;.</para>
-
-	  <para>For example, to connect from a client system that runs
-	    &os; to the serial connection of another system:</para>
+	  <para>例如，為了從 &os; 客戶端系統透過串列連到其他系統:
+	  </para>
 
 	  <screen>&prompt.root; <userinput>cu -l <replaceable>serial-port-device</replaceable></userinput></screen>
 
-	  <para>Replace <replaceable>serial-port-device</replaceable>
-	    with the device name of the connected serial port.  These
-	    device files are called
-	    <filename>/dev/cuau<replaceable>N</replaceable></filename>
-	    on &os; versions 10.x and higher and
-	    <filename>/dev/cuad<replaceable>N</replaceable></filename>
-	    on &os; versions 9.x and lower.  In either case,
-	    <replaceable>N</replaceable> is the serial port number,
-	    starting from zero.  This means that
-	    <filename>COM1</filename> is
-	    <filename>/dev/cuau0</filename> or
-	    <filename>/dev/cuad0</filename> in &os;.</para>
+	  <para>將 <replaceable>serial-port-device</replaceable>替換成連接的串列阜裝置名稱，
+	  在些裝置在 &os; versions 10.x 以上叫 <filename>/dev/cuau<replaceable>N</replaceable></filename>，
+		在 &os; versions 9.x 以下叫<filename>/dev/cuad<replaceable>N</replaceable></filename>。
+	   在任何一種情況，<replaceable>N</replaceable>是串列阜號碼，從零開始。
+	   這意味著在 &os; <filename>COM1</filename> 對應到<filename>/dev/cuau0</filename>或<filename>/dev/cuad0</filename>。
+		</para>
 
-	  <para>Additional programs are available through the Ports
-	    Collection, such as
-	    <package>comms/minicom</package>.</para>
+	  <para>額外的應用程式可以透過 Ports Collection 取得，例如
+	    <package>comms/minicom</package>。</para>
+	  </para>
 	</listitem>
       </varlistentry>
 
       <varlistentry>
 	<term>X Terminals</term>
 	<listitem>
-	  <para>X terminals are the most sophisticated kind of
-	    terminal available.  Instead of connecting to a serial
+	  <para>X terminals 是可取得終端中算是比較複雜的。are the most sophisticated kind of
+	    terminal available.  相較於連到串列阜，Instead of connecting to a serial
 	    port, they usually connect to a network like Ethernet.
-	    Instead of being relegated to text-only applications, they
-	    can display any <application>&xorg;</application>
-	    application.</para>
+	    相較於只能顯示文字的程式，他們可以顯示任何<application>&xorg;</application>程式。i
+	</para>
 
-	  <para>This chapter does not cover the setup, configuration,
-	    or use of X terminals.</para>
+	  <para>本章不包涵 X 終端的建立、設定與使用。</para>
 	</listitem>
       </varlistentry>
     </variablelist>
@@ -699,52 +670,34 @@
     <sect2 xml:id="term-config">
       <title>Terminal Configuration</title>
 
-      <para>This section describes how to configure a &os; system to
-	enable a login session on a serial terminal.  It assumes that
-	the system recognizes the serial port to which the terminal is
-	connected and that the terminal is connected with the correct
-	cable.</para>
+      <para>本節描述如何設定在 &os; 系統啟用串列終端的登入連線。它解設系統認得終端連結的串列阜並且終端與正確的纜線連接。
+	</para>
 
-      <para>In &os;, <command>init</command> reads
-	<filename>/etc/ttys</filename> and starts a
-	<command>getty</command> process on the available terminals.
-	The <command>getty</command> process is responsible for
-	reading a login name and starting the <command>login</command>
-	program.  The ports on the &os; system which allow logins are
-	listed in <filename>/etc/ttys</filename>.  For example, the
-	first virtual console, <filename>ttyv0</filename>, has an
-	entry in this file, allowing logins on the console.  This file
-	also contains entries for the other virtual consoles, serial
-	ports, and pseudo-ttys.  For a hardwired terminal, the serial
-	port's <filename>/dev</filename> entry is listed without the
-	<literal>/dev</literal> part.  For example,
-	<filename>/dev/ttyv0</filename> is listed as
-	<literal>ttyv0</literal>.</para>
+      <para>在 &os;， <command>init</command> 讀取
+	<filename>/etc/ttys</filename> 並且在可用的終端執行
+	<command>getty</command> 程序。<command>getty</command> 程序是負責讀取登入名稱並執行 <command>login</command> 程式。
+	&os; 系統允許的 Ports 列在<filename>/etc/ttys</filename>。例如，第一個虛擬 console，<filename>ttyv0</filename>，
+	有一個項目在這個檔案，允許在這個 console 登入。
+	這個檔案也包含其他虛擬 console、序列阜、pseudo-ttys。以硬體終端而言，串列阜的<filename>/dev</filename>項目被列在檔案中，但名字不包含 <literal>/dev</literal> 部份。
+	例如，<filename>/dev/ttyv0</filename>被列為<literal>ttyv0</literal>。
+	</para>
 
-      <para>The default <filename>/etc/ttys</filename> configures
-	support for the first four serial ports,
-	<filename>ttyu0</filename> through
-	<filename>ttyu3</filename>:</para>
+      <para>預設 <filename>/etc/ttys</filename> 設定前四個串列阜的支援，<filename>ttyu0</filename>到<filename>ttyu3</filename>:
+	</para>
 
       <programlisting>ttyu0   "/usr/libexec/getty std.9600"   dialup  off secure
 ttyu1   "/usr/libexec/getty std.9600"   dialup  off secure
 ttyu2   "/usr/libexec/getty std.9600"   dialup  off secure
 ttyu3   "/usr/libexec/getty std.9600"   dialup  off secure</programlisting>
 
-      <para>When attaching a terminal to one of those ports, modify
-	the default entry to set the required speed and terminal type,
-	to turn the device <literal>on</literal> and, if needed, to
-	change the port's <literal>secure</literal> setting.  If the
-	terminal is connected to another port, add an entry for the
-	port.</para>
+      <para>當連接一個終端到其中一個阜，修改預設的項目去設定所需的速度和終端型態，將裝置設定為 <literal>on</literal> 來啟用，如果有必要，
+	  改變阜的<literal>secure</literal>設定。如果終端被連接到其他阜，替那個阜增加一筆項目。
+	</para>
 
-      <para><xref linkend="ex-etc-ttys"/> configures two terminals in
-	<filename>/etc/ttys</filename>.  The first entry configures a
-	Wyse-50 connected to <filename>COM2</filename>.  The second
-	entry configures an old computer running
-	<application>Procomm</application> terminal software emulating
-	a VT-100 terminal.  The computer is connected to the sixth
-	serial port on a multi-port serial card.</para>
+      <para><xref linkend="ex-etc-ttys"/> 設定兩個終端在
+	<filename>/etc/ttys</filename>.  第一筆項目設定一個連接到 <filename>COM2</filename> 的 Wyse-50。第二筆項目設定一個使用<application>Procomm</application>終端軟體模擬
+	 VT-100 老電腦的終端。這個電腦被連接到一個多串列阜卡的第五個阜。
+	  </para>
 
       <example xml:id="ex-etc-ttys">
 	<title>Configuring Terminal Entries</title>
@@ -754,32 +707,18 @@ ttyu5   "/usr/libexec/getty std.19200"  vt100  on insecure</programlisting>
 
 	<calloutlist>
 	  <callout arearefs="co-ttys-line1col1">
-	    <para>The first field specifies the device name of the
-	      serial terminal.</para>
+	    <para>第一個欄位指定串列終端的裝置名稱。</para>
 	  </callout>
 
 	  <callout arearefs="co-ttys-line1col2">
-	    <para>The second field tells <command>getty</command> to
-	      initialize and open the line, set the line speed, prompt
-	      for a user name, and then execute the
-	      <command>login</command> program.  The optional
-	      <firstterm>getty type</firstterm> configures
-	      characteristics on the terminal line, like
-	      <acronym>bps</acronym> rate and parity.  The available
-	      getty types are listed in
-	      <filename>/etc/gettytab</filename>.  In almost all
-	      cases, the getty types that start with
-	      <literal>std</literal> will work for hardwired terminals
-	      as these entries ignore parity.  There is a
-	      <literal>std</literal> entry for each
-	      <acronym>bps</acronym> rate from 110 to 115200.  Refer
-	      to &man.gettytab.5; for more information.</para>
+	    <para>第二個欄位用來告訴<command>getty</command>去初始化，開啟裝置，設定裝置速度，提示使用者給予一個使用者名稱，並且執行<command>login</command>程式。
+		額外選項<firstterm>getty type</firstterm>設定終端線的特性，如<acronym>bps</acronym>速率和 parity。可用的 getty 型態被列在<filename>/etc/gettytab</filename>。
+	      在大部分情況下，以<literal>std</literal> 開頭的 getty 型態名稱將作為硬體終端使用，這些項目忽略 parity，有一個
+		  <literal>std</literal> 項目作為代表每一個從 100 到 115200 的 <acronym>bps</acronym>速率。更多訊息可參考&man.gettytab.5;。
 
-	    <para>When setting the getty type, make sure to match the
-	      communications settings used by the terminal.  For this
-	      example, the Wyse-50 uses no parity and connects at
-	      38400&nbsp;bps.  The computer uses no parity and
-	      connects at 19200&nbsp;bps.</para>
+	    <para>當設定一個 getty 的型態，確保符合終端使用的通訊設定。例如，Wyse-50 使用 no parity　和運作在38400&nbsp;bps　下。
+		而那台老舊的電腦使用 no parity 並且運作在 19200&nbsp;bps 下。
+	     </para>
 	  </callout>
 
 	  <callout arearefs="co-ttys-line1col3">
