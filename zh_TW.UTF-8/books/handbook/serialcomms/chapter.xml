@@ -758,22 +758,15 @@ ttyu5   "/usr/libexec/getty std.19200"  vt100  on insecure</programlisting>
 	</calloutlist>
       </example>
 
-      <para>After making any changes to
-	<filename>/etc/ttys</filename>, send a SIGHUP (hangup) signal
-	to the <command>init</command> process to force it to re-read
-	its configuration file:</para>
+      <para>對<filename>/etc/ttys</filename> 做任何改變之後, 送一個 SIGHUP (hangup) 訊號給 <command>init</command> 程序，強制它重新讀取他的設定檔:
+	</para>
 
       <screen>&prompt.root; <userinput>kill -HUP 1</userinput></screen>
 
-      <para>Since <command>init</command> is always the first process
-	run on a system, it always has a process <acronym>ID</acronym>
-	of <literal>1</literal>.</para>
+      <para>自從 <command>init</command> 是第一個系統執行的程式開始，它的程序 <acronym>ID</acronym> 一直為 <literal>1</literal>。</para>
 
-      <para>If everything is set up correctly, all cables are in
-	place, and the terminals are powered up, a
-	<command>getty</command> process should now be running on each
-	terminal and login prompts should be available on each
-	terminal.</para>
+      <para>如果每一件事情都有正確設定，纜線都有接好，每一個終端機都有上電，一個 <command>getty</command> 程序現在應該已經在每一個終端執行，而且登入提示應該出現在每一個終端前。
+	</para>
     </sect2>
 
     <sect2 xml:id="term-debug">
@@ -784,62 +777,40 @@ ttyu5   "/usr/libexec/getty std.19200"  vt100  on insecure</programlisting>
 	Here is a list of common symptoms and some suggested
 	fixes.</para>
 
-      <para>If no login prompt appears, make sure the terminal is
-	plugged in and powered up.  If it is a personal computer
-	acting as a terminal, make sure it is running terminal
-	emulation software on the correct serial port.</para>
+      <para>如果沒有登入提示出現，確定終端機是有被接上並且上電。如果它是一個個人電腦當成終端機，確定終端模擬軟體有開啟正確的序列阜。
+	</para>
 
-      <para>Make sure the cable is connected firmly to both the
-	terminal and the &os; computer.  Make sure it is the right
-	kind of cable.</para>
+      <para>確定纜線有被牢固的接在終端機和 &os; 電腦之間。確定纜線的種類是正確的。
+	</para>
 
-      <para>Make sure the terminal and &os; agree on the
-	<acronym>bps</acronym> rate and parity settings.  For a video
-	display terminal, make sure the contrast and brightness
-	controls are turned up.  If it is a printing terminal, make
-	sure paper and ink are in good supply.</para>
+      <para>確定終端機和 &os; 可以適合 <acronym>bps</acronym> 速率和 parity 設定。以視訊撥放的終端機，確定對比跟亮度控制是 turn up。如果是一個列印終端，確保紙張跟墨水有正確放置。
+	</para>
 
-      <para>Use <command>ps</command> to make sure that a
-	<command>getty</command> process is running and serving the
-	terminal.  For example, the following listing shows that a
-	<command>getty</command> is running on the second serial port,
-	<filename>ttyu1</filename>, and is using the
-	<literal>std.38400</literal> entry in
-	<filename>/etc/gettytab</filename>:</para>
+      <para>使用 <command>ps</command> 來確保
+	<command>getty</command> 程序正在執行中並且提供終端服務。舉例來說，下列顯示有ㄧ個
+	<command>getty</command> 正在使用第二個序列埠
+	<filename>ttyu1</filename>，並且使用在<filename>/etc/gettytab</filename>內的<literal>std.38400</literal>項目:
+	</para>
 
       <screen>&prompt.root; <userinput>ps -axww|grep ttyu</userinput>
 22189  d1  Is+    0:00.03 /usr/libexec/getty std.38400 ttyu1</screen>
 
-      <para>If no <command>getty</command> process is running, make
-	sure the port is enabled in <filename>/etc/ttys</filename>.
-	Remember to run <command>kill -HUP 1</command> after modifying
-	<filename>/etc/ttys</filename>.</para>
+      <para>如果沒有任何 <command>getty</command> 程序正在執行，確保該序列埠在 <filename>/etc/ttys</filename> 有被啟用。
+	  修改完 <filename>/etc/ttys</filename> 記得執行 <command>kill -HUP 1</command> 
+	  </para>
 
-      <para>If the <command>getty</command> process is running but the
-	terminal still does not display a login prompt, or if it
-	displays a prompt but will not accept typed input, the
-	terminal or cable may not support hardware handshaking.  Try
-	changing the entry in <filename>/etc/ttys</filename> from
-	<literal>std.38400</literal> to
-	<literal>3wire.38400</literal>, then run <command>kill -HUP
-	  1</command> after modifying <filename>/etc/ttys</filename>.
-	The <literal>3wire</literal> entry is similar to
-	<literal>std</literal>, but ignores hardware handshaking.  The
-	baud rate may need to be reduced or software flow control
-	enabled when using <literal>3wire</literal> to prevent buffer
-	overflows.</para>
+      <para>如果 <command>getty</command> 程序正在執行但是終端仍然沒有顯示燈入提示
+	  ，或者有顯示提示但是不能接受任何鍵盤輸入，終端機或纜線可能不支援硬體交握，
+	  試試看將 <filename>/etc/ttys</filename> 的該項目從 <literal>std.38400</literal> 改成 <literal>3wire.38400</literal>，修改完 <filename>/etc/ttys</filename> 之後
+	  ，執行 <command>kill -HUP 1</command>。<literal>3wire</literal> 項目跟 <literal>std</literal> 相似，但是忽略硬體交握。當使用 <literal>3wire</literal> 
+	  來防止緩衝區溢位，它的 baud 率可能需要降低，或者啟用軟體流量控制。
+	</para>
 
-      <para>If garbage appears instead of a login prompt, make sure
-	the terminal and &os; agree on the <acronym>bps</acronym> rate
-	and parity settings.  Check the <command>getty</command>
-	processes to make sure the correct
-	<replaceable>getty</replaceable> type is in use.  If not, edit
-	<filename>/etc/ttys</filename> and run <command>kill
-	  -HUP 1</command>.</para>
+      <para>如果出現的是垃圾訊息而不是登入提示，確保終端機和 &os; 適合使用 <acronym>bps</acronym> 速率和 parity 設定
+	檢查 <command>getty</command> 程序來確保使用的是正確的 <replaceable>getty</replaceable> 類型。如果不是，編輯
+	<filename>/etc/ttys</filename> 然後執行 <command>kill -HUP 1</command>.</para>
 
-      <para>If characters appear doubled and the password appears when
-	typed, switch the terminal, or the terminal emulation
-	software, from <quote>half duplex</quote> or <quote>local
+      <para>如果出現重複字元和密碼被顯示，更換終端機或者終端模擬軟體，from <quote>half duplex</quote> or <quote>local 
 	  echo</quote> to <quote>full duplex.</quote></para>
     </sect2>
   </sect1>
@@ -1329,7 +1300,7 @@ AT&amp;B2&amp;W</programlisting>
   </sect1>
 
   <sect1 xml:id="dialout">
-    <title>Dial-out Service</title>
+    <title>Dial-out 服務</title>
 
     <indexterm><primary>dial-out service</primary></indexterm>
 
@@ -2010,11 +1981,10 @@ boot:</screen>
     </sect2>
 
     <sect2>
-      <title>Setting a Faster Serial Port Speed</title>
+      <title>設定較快的序列阜速度</title>
 
-      <para>By default, the serial port settings are 9600 baud, 8
-	bits, no parity, and 1 stop bit.  To change the default
-	console speed, use one of the following options:</para>
+      <para>預設下，序列阜速度是 9600 baud， 8
+	bits, no parity, and 1 stop bit.  為了改變預設的 console 速度，使用下面其中一個選項:</para>
 
       <itemizedlist>
 	<listitem>
@@ -2047,7 +2017,7 @@ boot:</screen>
 	</listitem>
 
 	<listitem>
-	  <para>Add the following options to
+	  <para>加入下列選項到
 	    <filename>/boot/loader.conf</filename>.  Replace
 	    <replaceable>115200</replaceable> with the speed to
 	    use.</para>
@@ -2063,14 +2033,10 @@ console="comconsole,vidconsole"</programlisting>
     <sect2 xml:id="serialconsole-ddb">
       <title>Entering the DDB Debugger from the Serial Line</title>
 
-      <para>To configure the ability to drop into the kernel debugger
-	from the serial console, add the following options to a custom
-	kernel configuration file and compile the kernel using the
-	instructions in <xref linkend="kernelconfig"/>.  Note that
-	while this is useful for remote diagnostics, it is also
-	dangerous if a spurious BREAK is generated on the serial port.
-	Refer to &man.ddb.4; and &man.ddb.8; for more information
-	about the kernel debugger.</para>
+      <para>為了設定核心支援從序列 console 跳入核心偵錯器的能力，在客製化核心設定檔加入下列選項並且利用
+	  在 <xref linkend="kernelconfig"/> 的指令編譯核心。注意，當這是一個對於遠端偵測的有用工具時，假如有人偽造假的 BREAK 並送到序列阜，
+	  它將變的很危險。想要知道更多關於核心偵錯器請參考 &man.ddb.4; and &man.ddb.8;。
+	</para>
 
       <programlisting>options BREAK_TO_DEBUGGER
 options DDB</programlisting>
