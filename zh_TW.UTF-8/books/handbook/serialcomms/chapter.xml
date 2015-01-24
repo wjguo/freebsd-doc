@@ -841,29 +841,26 @@ ttyu5   "/usr/libexec/getty std.19200"  vt100  on insecure</programlisting>
 
     <indexterm><primary>dial-in service</primary></indexterm>
 
-    <para>Configuring a &os; system for dial-in service is similar to
-      configuring terminals, except that modems are used instead of
-      terminal devices.  &os; supports both external and internal
-      modems.</para>
+    <para>設定 &os; 系統的 dial-in 服務就像設定終端機, 除了數據機是"被用"，而不是
+	終端設備。 &os; 支援外部跟內部數據機。
+    </para>
 
-    <para>External modems are more convenient because they often can
-      be configured via parameters stored in non-volatile
-      <acronym>RAM</acronym> and they usually provide lighted
-      indicators that display the state of important
-      <acronym>RS-232</acronym> signals, indicating whether the modem
-      is operating properly.</para>
+    <para>
+	  外部數據機通常比較方便，因為通常他們可以透過放在 non-volatile <acronym>RAM</acronym>的參數來設定，
+	  而且他們也提供燈號來指示重要的 <acronym>RS-232</acronym> 訊號狀態，顯示是否數據機正常運作中。
+    </para>
 
-    <para>Internal modems usually lack non-volatile
-      <acronym>RAM</acronym>, so their configuration may be limited to
-      setting <acronym>DIP</acronym> switches.  If the internal modem
-      has any signal indicator lights, they are difficult to view when
-      the system's cover is in place.</para>
+    <para>內部數據機通常缺乏 lack non-volatile
+      <acronym>RAM</acronym>，所以設定方式可能被限制
+      setting <acronym>DIP</acronym> switches.  
+	  如果內部數據機有任何訊號指示燈，有可能被電腦機殼蓋住而很難發現
+    </para>
 
     <indexterm><primary>modem</primary></indexterm>
 
-    <para>When using an external modem, a proper cable is needed.  A
-      standard <acronym>RS-232C</acronym> serial cable should
-      suffice.</para>
+    <para>當使用外部數據機時，是需要一條正確的纜線，
+      標準的<acronym>RS-232C</acronym> 串列線應該足夠
+    </para>
 
     <para>&os; needs the <acronym>RTS</acronym> and
       <acronym>CTS</acronym> signals for flow control at speeds above
@@ -1056,13 +1053,13 @@ vq|VH57600|Very High Speed Modem at 57600,8-bit:\
 	<secondary><filename>rc.serial</filename></secondary>
       </indexterm>
 
-      <para>High-speed modems, like <acronym>V.32</acronym>,
-	<acronym>V.32bis</acronym>, and <acronym>V.34</acronym>
-	modems, use hardware (<literal>RTS/CTS</literal>) flow
-	control.  Use <command>stty</command> to set the hardware flow
-	control flag for the modem port.  This example sets the
-	<varname>crtscts</varname> flag on <filename>COM2</filename>'s
-	dial-in and dial-out initialization devices:</para>
+      <para>高速數據機，例如 <acronym>V.32</acronym>,
+	<acronym>V.32bis</acronym>, 和 <acronym>V.34</acronym>
+	數據機，使用硬體 (<literal>RTS/CTS</literal>) 流量控制。
+	可以用 <command>stty</command> 設定該阜的硬體流量控制旗標。
+	這個範例設定了
+	<varname>crtscts</varname> 旗標在 <filename>COM2</filename> 的
+	dial-in and dial-out 初始化設備:</para>
 
       <screen>&prompt.root; <userinput>stty -f /dev/ttyu1.init crtscts</userinput>
 &prompt.root; <userinput>stty -f /dev/cuau1.init crtscts</userinput></screen>
@@ -1217,56 +1214,43 @@ AT&amp;B2&amp;W</programlisting>
     -->
 
     <sect2>
-      <title>Troubleshooting</title>
+      <title>疑難排解</title>
 
-      <para>This section provides a few tips for troubleshooting a
-	dial-up modem that will not connect to a &os; system.</para>
+      <para>這節提供一些提示，當  dial-up 數據機沒有連到 &os; 系統時，可以用來排解
+	  </para>
 
-      <para>Hook up the modem to the &os; system and boot the system.
-	If the modem has status indication lights, watch to see
-	whether the modem's <acronym>DTR</acronym> indicator lights
-	when the <prompt>login:</prompt> prompt appears on the
-	system's console.  If it lights up, that should mean that &os;
-	has started a <command>getty</command> process on the
-	appropriate communications port and is waiting for the modem
-	to accept a call.</para>
+      <para>將數據機掛上 &os;，然後開機，如果數據機有狀態燈，當 <prompt>login:</prompt> 提示出現在螢幕上時，
+	  
+	  看看數據機的 <acronym>DTR</acronym> 指示燈，如果是亮的，表示 &os; 應該已經啟動 <command>getty</command> 來處理通訊阜，
+	  等待接收來自數據機的呼叫。
+	  </para>
 
-      <para>If the <acronym>DTR</acronym> indicator does not light,
-	login to the &os; system through the console and type
-	<command>ps ax</command> to see if &os; is running a
-	<command>getty</command> process on the correct port:</para>
+      <para>如果 <acronym>DTR</acronym> 指示燈並沒有亮起來
+	  經過終端登入 &os; 系統，輸入 <command>ps ax</command> 來看 &os; 是否正在執行 <command>getty</command> 在對的串列阜：
+	  </para>
 
       <screen>  114 ??  I      0:00.10 /usr/libexec/getty V19200 <replaceable>ttyu0</replaceable></screen>
 
-      <para>If the second column contains a <literal>d0</literal>
-	instead of a <literal>??</literal> and the modem has not
-	accepted a call yet, this means
-	that <command>getty</command> has completed its open on the
-	communications port.  This could indicate a problem with the
-	cabling or a misconfigured modem because
-	<command>getty</command> should not be able to open the
-	communications port until the carrier detect signal has been asserted by
-	the modem.</para>
+      <para>如果第二欄顯示 <literal>d0</literal>，而不是
+	<literal>??</literal>，而且數據機還沒收到一個呼叫，這表示
+	<command>getty</command> 已經完成開機通訊阜的動作。
+	這可能表示數據機有問題或設定錯誤，因為在 carrier 偵測到數據機發出的訊號前，
+	<command>getty</command> 不應該能去開啟通訊阜，
+	 </para>
 
-      <para>If no <command>getty</command> processes are waiting to
-	open the port, double-check that the entry for the port is
-	correct in <filename>/etc/ttys</filename>.  Also, check
-	<filename>/var/log/messages</filename> to see if there are
-	any log messages from <command>init</command> or
-	<command>getty</command>.</para>
+      <para>如果沒有 <command>getty</command> 程序正在等待開啟通訊阜，再檢查一次 entry 有被正確的寫在 <filename>/etc/ttys</filename>，
+	  還有，檢查 <filename>/var/log/messages</filename> 是否有任何來自 <command>init</command> 或 <command>getty</command> 的紀錄 .
+	  </para>
 
-      <para>Next, try dialing into the system.  Be sure to use 8 bits,
-	no parity, and 1 stop bit on the remote system.  If a prompt
-	does not appear right away, or the prompt shows garbage, try
-	pressing <keycap>Enter</keycap> about once per second.  If
-	there is still no <prompt>login:</prompt> prompt,
-	try sending a <command>BREAK</command>.  When using a
-	high-speed modem, try dialing again after locking the
-	dialing modem's interface speed.</para>
+      <para>接著，嘗試撥入系統，確定使用的是 8 bits,
+	no parity, and 1 stop bit。 如果沒有出現立刻出現任何提示，
+	試試看每秒按一次按 <keycap>Enter</keycap>。如果仍然沒有 <prompt>login:</prompt> 提示，試試看送一個 <command>BREAK</command>。
+	當使用一個高速數據機時，鎖住介面的速度後，再撥一次試試看。
+	  </para>
 
-      <para>If there is still no <prompt>login:</prompt> prompt, check
-	<filename>/etc/gettytab</filename> again and double-check
-	that:</para>
+      <para>如果還是沒有 <prompt>login:</prompt> 提示，再檢查
+	<filename>/etc/gettytab</filename> 一次，然後確認：
+	  </para>
 
       <itemizedlist>
 	<listitem>
@@ -1293,9 +1277,8 @@ AT&amp;B2&amp;W</programlisting>
 	<acronym>DTR</acronym> line is asserted by checking the
 	modem's indicator lights.</para>
 
-      <para>If it still does not work, try sending an email
-	to the &a.questions; describing the modem and the
-	problem.</para>
+      <para>如果還是不能用，描速問題，寄一封電子郵件給 &a.questions;。
+	  </para>
     </sect2>
   </sect1>
 
@@ -1572,20 +1555,18 @@ raisechar=^^</programlisting>
       <title>Using <application>zmodem</application> with
 	<command>tip</command>?</title>
 
-      <para>To receive files, start the sending program on the remote
-	end.  Then, type <command>~C rz</command> to begin receiving
-	them locally.</para>
+      <para>為了收到檔案，在遠端執行一個傳送程式。然後在本機端輸入 <command>~C rz</command> 來接收他們。
+	  </para>
 
-      <para>To send files, start the receiving program on the remote
-	end.  Then, type <command>~C sz
-	<replaceable>files</replaceable></command> to send them to the
-	remote system.</para>
+      <para>至於傳送檔案，在遠端開啟接收程式，然後輸入 <command>~C sz<replaceable>files</replaceable></command>
+	  來傳送檔案到遠端系統。
+	  </para>
     </sect2>
   </sect1>
 
   <sect1 xml:id="serialconsole-setup">
     <info>
-    <title>Setting Up the Serial Console</title>
+    <title>設定串列終端</title>
 
       <authorgroup>
 	<author>
@@ -1609,30 +1590,22 @@ raisechar=^^</programlisting>
 
     <indexterm><primary>serial console</primary></indexterm>
 
-    <para>&os; has the ability to boot a system with a dumb
-      terminal on a serial port as a console.  This configuration is
-      useful for system administrators who wish to install &os; on
-      machines that have no keyboard or monitor attached, and
-      developers who want to debug the kernel or device
-      drivers.</para>
+    <para>&os; 有能力用串列阜上的 dumb 終端來開機，這個方法對想要安裝 &os; 卻沒有鍵盤和螢幕的系統管理員，還有想要偵錯核或驅動程式的開發者非常有用。
+    </para>
 
-    <para>As described in <xref linkend="boot"/>, &os; employs a three
-      stage bootstrap.  The first two stages are in the boot block
-      code which is stored at the beginning of the &os; slice on the
-      boot disk.  The boot block then loads and runs the boot loader
-      as the third stage code.</para>
+    <para>如同 <xref linkend="boot"/> 所述，&os; 利用三階段 bootstrap，
+	前兩階段的程式是在是在開機硬碟最前面的 slice 中的前幾區塊。
+	這個開機區塊將第三階段的開機程式載入並執行。
+    </para>
 
-    <para>In order to set up booting from a serial console, the boot
-      block code, the boot loader code, and the kernel need to be
-      configured.</para>
+    <para>為了設定從串列終端開機，開機區塊程式、開機載入程式和核心皆需要設定。
+    </para>
 
     <sect2 xml:id="serialconsole-howto-fast">
-      <title>Quick Serial Console Configuration</title>
-
-      <para>This section provides a fast overview of setting up the
-	serial console.  This procedure can be used when the dumb
-	terminal is connected to <filename>COM1</filename>.</para>
-
+      <title>快速串列終端設定</title>
+      <para>
+	  本節提供一個串列終端的快速概要。這步驟可以用在當 dumb 終端連接到 <filename>COM1</filename> 時。
+	  </para>
       <procedure>
 	<title>Configuring a Serial Console on
 	  <filename>COM1</filename></title>
@@ -1652,7 +1625,7 @@ raisechar=^^</programlisting>
 	</step>
 
 	<step>
-	  <para>Edit <filename>/etc/ttys</filename> and change
+	  <para>編輯 <filename>/etc/ttys</filename> and change
 	    <literal>off</literal> to <literal>on</literal> and
 	    <literal>dialup</literal> to <literal>vt100</literal> for
 	    the <filename>ttyu0</filename> entry.  Otherwise, a
@@ -1674,14 +1647,14 @@ raisechar=^^</programlisting>
     <sect2 xml:id="serialconsole-howto">
       <title>In-Depth Serial Console Configuration</title>
 
-      <para>This section provides a more detailed explanation of the
-	steps needed to setup a serial console in &os;.</para>
+      <para>這節提供關於在 &os; 設定串列 console 比較細部的解釋。
+	  </para>
 
       <procedure>
 	<title>Configuring a Serial Console</title>
 
 	<step>
-	  <para>Prepare a serial cable.</para>
+	  <para>準備一條串列纜線</para>
 
 	  <indexterm><primary>null-modem cable</primary></indexterm>
 
@@ -1694,84 +1667,63 @@ raisechar=^^</programlisting>
 	<step>
 	  <para>Unplug the keyboard.</para>
 
-	  <para>Many systems probe for the keyboard during the
-	    Power-On Self-Test (<acronym>POST</acronym>) and will
-	    generate an error if the keyboard is not detected.  Some
-	    machines will refuse to boot until the keyboard is plugged
-	    in.</para>
+	  <para>很多系統會在開機中的 Power-On Self-Test (<acronym>POST</acronym>)
+	  偵測鍵盤，如果沒有偵測到鍵盤，則會發出錯誤訊息。一些機器會拒絕開機，除非接上鍵盤。
+	  </para>
 
-	  <para>If the computer complains about the error, but boots
-	    anyway, no further configuration is needed.</para>
+	  <para>如果電腦抱怨有這些錯誤，但是繼續開機，則不需要進一步設定。
+	  </para>
 
-	  <para>If the computer refuses to boot without a keyboard
-	    attached, configure the <acronym>BIOS</acronym> so that it
-	    ignores this error.  Consult the motherboard's manual for
-	    details on how to do this.</para>
+	  <para>如果電腦因為沒有鍵盤而拒絕開機，設定 <acronym>BIOS</acronym> 來忽略這個錯誤。參考主機板手冊以了解如何進行的細節
+	  </para>
 
 	  <tip>
-	    <para>Try setting the keyboard to <quote>Not
-		installed</quote> in the <acronym>BIOS</acronym>.
-	      This setting tells the <acronym>BIOS</acronym> not to
-	      probe for a keyboard at power-on so it should not
-	      complain if the keyboard is absent.  If that option is
-	      not present in the <acronym>BIOS</acronym>, look for an
-	      <quote>Halt on Error</quote> option instead.  Setting
-	      this to <quote>All but Keyboard</quote> or to <quote>No
-		Errors</quote> will have the same effect.</para>
+	    <para>試試看在 <acronym>BIOS</acronym> 設定鍵盤為 <quote>Not
+		installed</quote>，這個設定告訴 <acronym>BIOS</acronym>　不要開機偵測鍵盤，所以系統不應該抱怨鍵盤不存在。
+		如果這個選項不在 <acronym>BIOS</acronym> 中，改找 <quote>Halt on Error</quote> 看看，定這個選項為
+		<quote>All but Keyboard</quote> 或者　<quote>No Errors</quote> 將會有同樣的效果。
+		</para>
 	  </tip>
 
-	  <para>If the system has a &ps2; mouse, unplug it as well.
-	    &ps2; mice share some hardware with the keyboard and
-	    leaving the mouse plugged in can fool the keyboard probe
-	    into thinking the keyboard is still there.</para>
+	  <para>如系統有 &ps2; 滑鼠，拔掉它，
+	    &ps2; 滑鼠與鍵盤共享一些硬體，插上滑鼠可以騙過鍵盤偵測，讓它以為鍵盤仍然存在。
+	  </para>
 
 	  <note>
-	    <para>While most systems will boot without a keyboard,
-	      quite a few will not boot without a graphics adapter.
-	      Some systems can be configured to  boot with no graphics
-	      adapter by changing the <quote>graphics adapter</quote>
-	      setting in the <acronym>BIOS</acronym> configuration to
-	      <quote>Not installed</quote>.  Other systems do not
-	      support this option and will refuse to boot if there is
-	      no display hardware in the system.  With these machines,
-	      leave some kind of graphics card plugged in, even if it
-	      is just a junky mono board.  A monitor does not need to
-	      be attached.</para>
+	    <para>雖然大部分的系統可以在沒有鍵盤下開機，有一小部份不能在沒有 graphics adapter 下開機。
+		 　一些系統可以藉由在 <acronym>BIOS</acronym> 設定 <quote>graphics adapter</quote> 成 <quote>Not installed</quote>，
+		 在沒有顯示卡情況下開機。而不支援的這個選項的系統，如果在沒有顯示硬體情況下，將拒絕開機。
+		對於這些機器，可以將顯示卡插著，雖然它只是一個沒用的板子。螢幕則不需要接上。
+	    </para>
 	  </note>
 	</step>
 
 	<step>
-	  <para>Plug a dumb terminal, an old computer with a modem
+	  <para>插上 dumb terminal, an old computer with a modem
 	    program, or the serial port on another &unix; box into the
 	    serial port.</para>
 	</step>
 
 	<step>
-	  <para>Add the appropriate <literal>hint.sio.*</literal>
-	    entries to <filename>/boot/device.hints</filename> for the
-	    serial port.  Some multi-port cards also require kernel
-	    configuration options.  Refer to &man.sio.4; for the
-	    required options and device hints for each supported
-	    serial port.</para>
+	  <para>替串列阜新增適當的 <literal>hint.sio.*</literal>
+	    項目到 <filename>/boot/device.hints</filename>。一些多阜卡需要核心設定選項支援。為了串列阜支援，參考 &man.sio.4; 相應的選項和 device hints。
+	  </para>
 	</step>
 
 	<step>
-	  <para>Create <filename>boot.config</filename> in the root
-	    directory of the <literal>a</literal> partition on the
-	    boot drive.</para>
+	  <para>在開機硬碟分割區 <literal>a</literal> 的根目錄建立 <filename>boot.config</filename> 
+	  </para>
 
-	  <para>This file instructs the boot block code how to boot
-	    the system.  In order to activate the serial console, one
-	    or more of the following options are needed.  When using
-	    multiple options, include them all on the same
-	    line:</para>
+	  <para>這個檔案指示開機區塊程式如何開啟系統，為了啟用串列 console，一個或多個下列選項是必要的。當使用多個選項，將他們全部放在同一行This file instructs the boot block code how to boot
+	  </para>
 
 	  <variablelist>
 	    <varlistentry>
 	      <term><option>-h</option></term>
 
 	      <listitem>
-		<para>Toggles between the internal and serial
+		<para>
+		Toggles between the internal and serial
 		  consoles.  Use this to switch console devices.  For
 		  instance, to boot from the internal (video) console,
 		  use <option>-h</option> to direct the boot loader
@@ -1847,19 +1799,16 @@ raisechar=^^</programlisting>
 	<step>
 	  <para>Boot the machine.</para>
 
-	  <para>When &os; starts, the boot blocks echo the contents of
-	    <filename>/boot.config</filename> to the console.  For
-	    example:</para>
+	  <para>當 &os; 開始開機，開機區塊將 <filename>/boot.config</filename> 內容顯示在控制台上。
+	  例如：
+	  </para>
 
 	  <screen>/boot.config: -P
 Keyboard: no</screen>
 
-	  <para>The second line appears only if <option>-P</option> is
-	    in <filename>/boot.config</filename> and indicates the
-	    presence or absence of the keyboard.  These messages go
-	    to either the serial or internal console, or both,
-	    depending on the option in
-	    <filename>/boot.config</filename>:</para>
+	  <para>第二行只有在 <filename>/boot.config</filename> 設定 <option>-P</option> 下才會出現，表示鍵盤存在或不存在，
+	  這些顯示在串列或內部控制，或兩個都顯示，全根據 <filename>/boot.config</filename> 中的選項：
+	  </para>
 
 	  <informaltable frame="none" pgwide="1">
 	    <tgroup cols="2">
@@ -1988,10 +1937,10 @@ boot:</screen>
 
       <itemizedlist>
 	<listitem>
-	  <para>Edit <filename>/etc/make.conf</filename> and set
-	    <varname>BOOT_COMCONSOLE_SPEED</varname> to the new
-	    console speed.  Then, recompile and install the boot
-	    blocks and the boot loader:</para>
+	  <para>編輯 <filename>/etc/make.conf</filename> 並解設定
+	    <varname>BOOT_COMCONSOLE_SPEED</varname> ，指定新的終端速度。
+		然後，編譯並且安裝開機區塊和開機載入器：
+	    </para>
 
 	  <screen>&prompt.root; <userinput>cd /sys/boot</userinput>
 &prompt.root; <userinput>make clean</userinput>
