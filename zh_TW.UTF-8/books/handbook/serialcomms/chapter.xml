@@ -480,7 +480,7 @@
 	</listitem>
 
 	<listitem>
-	  <para>Call-ou 阜命名為
+	  <para>Call-out 阜命名為
 	    <filename>/dev/cuau<replaceable>N</replaceable></filename>
 	    on &os; versions 10.x and higher and
 	    <filename>/dev/cuad<replaceable>N</replaceable></filename>
@@ -489,27 +489,22 @@
 	</listitem>
       </itemizedlist>
 
-      <para>&os; also provides initialization devices
+      <para>&os; 也提供初始化裝置
 	(<filename>/dev/ttyu<replaceable>N</replaceable>.init</filename>
-	and
+	和
 	<filename>/dev/cuau<replaceable>N</replaceable>.init</filename>
-	or
+	或
 	<filename>/dev/cuad<replaceable>N</replaceable>.init</filename>)
-	and locking devices
+	和鎖定裝置
 	(<filename>/dev/ttyu<replaceable>N</replaceable>.lock</filename>
-	and
+	和
 	<filename>/dev/cuau<replaceable>N</replaceable>.lock</filename>
-	or
+	或
 	<filename>/dev/cuad<replaceable>N</replaceable>.lock</filename>).
-	The initialization devices are used to initialize
-	communications port parameters each time a port is opened,
-	such as <literal>crtscts</literal> for modems which use
-	<literal>RTS/CTS</literal> signaling for flow control.  The
-	locking devices are used to lock flags on ports to prevent
-	users or programs changing certain parameters.  Refer to
-	&man.termios.4;, &man.sio.4;, and &man.stty.1; for information
-	on terminal settings, locking and initializing devices, and
-	setting terminal options, respectively.</para>
+	初始化裝置用來初始化通訊阜開啟的的參數，例如用 <literal>RTS/CTS</literal> 訊號來做 modem 流量控制的 <literal>crtscts</literal>。
+	鎖定裝置提供鎖定旗標，防止使用者或程式改變某種參數。想瞭解更多終端設定、鎖定和初始化裝置、設定終端選項的資訊，
+	請分別參考 &man.termios.4;, &man.sio.4;, and &man.stty.1;，
+	</para>
     </sect2>
 
     <sect2 xml:id="serial-hw-config">
@@ -527,19 +522,12 @@
 
       <screen>&prompt.root; <userinput>grep uart /var/run/dmesg.boot</userinput></screen>
 
-      <para>
-	  If the system does not recognize all of the needed serial
-	ports, additional entries can be added to
-	<filename>/boot/device.hints</filename>.  This file already
-	contains <literal>hint.uart.0.*</literal> entries for
-	<filename>COM1</filename> and <literal>hint.uart.1.*</literal>
-	entries for <filename>COM2</filename>.  When adding a port
-	entry for <filename>COM3</filename> use
-	<literal>0x3E8</literal>, and for <filename>COM4</filename>
-	use <literal>0x2E8</literal>.  Common <acronym>IRQ</acronym>
-	addresses are <literal>5</literal> for
-	<filename>COM3</filename> and <literal>9</literal> for
-	<filename>COM4</filename>.</para>
+      <para>如果系統沒有辨識出所有的串列阜，可以將額外項目加入 <filename>/boot/device.hints</filename>，
+	  這個檔案已經包含了一些項目， <literal>hint.uart.0.*</literal> 相關項目為了 <filename>COM1</filename>，
+	  <literal>hint.uart.1.*</literal> 是為了 <filename>COM2</filename>。當新增的<filename>COM3</filename> 項目使用 <literal>0x3E8</literal>，
+	  新增的 <filename>COM4</filename> 使用 <literal>0x2E8</literal>。通用 <acronym>IRQ</acronym> 的位址，<filename>COM3</filename> 是 <literal>5</literal>，
+	  <filename>COM4</filename> 是 <literal>9</literal>。
+	  </para>
 
       <indexterm><primary><filename>ttyu</filename></primary></indexterm>
       <indexterm><primary><filename>cuau</filename></primary></indexterm>
@@ -608,13 +596,9 @@
       <varlistentry>
 	<term>Dumb terminals</term>
 	<listitem>
-	  <para>Dumb terminals are specialized hardware that connect
-	    to computers over serial lines.  They are called
-	    <quote>dumb</quote> because they have only enough
-	    computational power to display, send, and receive text.
-	    No programs can be run on these devices.  Instead, dumb
-	    terminals connect to a computer that runs the needed
-	    programs.</para>
+	  <para>Dumb terminals 是一種透過串列線連到電腦的專門硬體，他們被稱為 <quote>dumb</quote>，是因為他們只有足夠用的計算能力來顯示和傳送文字，
+	  不能在裝置上面執行任何程式，反而是 dumb terminals 所連到的電腦執行所需的程式。
+	  </para>
 
 	  <para>有上千種各種製造商的簡易終端，其中大部分可以與 &os; 正常互動。有些高階的終端甚至可以顯示圖形，但是只有某些軟體套件可以使用到這些進階功能。
 		</para>
@@ -722,38 +706,29 @@ ttyu5   "/usr/libexec/getty std.19200"  vt100  on insecure</programlisting>
 	  </callout>
 
 	  <callout arearefs="co-ttys-line1col3">
-	    <para>The third field is the type of terminal.  For
-	      dial-up ports, <literal>unknown</literal> or
-	      <literal>dialup</literal> is typically used since users
-	      may dial up with practically any type of terminal or
-	      software.  Since the terminal type does not change for
-	      hardwired terminals, a real terminal type from
-	      <filename>/etc/termcap</filename> can be specified.  For
-	      this example, the Wyse-50 uses the real terminal type
-	      while the computer running
-	      <application>Procomm</application> is set to emulate a
-	      VT-100.</para>
+	  	<para>
+		 <literal>撥號</literal> 
+	    第三個欄位是終端的型態。作為撥號阜，從使用者實際上可能用任何型態的終端或軟體來撥號開始，這個欄位通常是使用 <literal>unknown</literal> or 
+		<literal>dialup</literal>。這個終端型態並不會改變硬體終端，在 <filename>/etc/termcap</filename> 真正的終端型態是可以被指定，例如，
+		Wyse-50　使用真正的終端型態，然而，執行 <application>Procomm</application> 被設定去模擬 VT-100。
+	    </para>
 	  </callout>
 
 	  <callout arearefs="co-ttys-line1col4">
-	    <para>The fourth field specifies if the port should be
-	      enabled.  To enable logins on this port, this field must
-	      be set to <literal>on</literal>.</para>
+	    <para>第四個欄位說明使否這個阜是啟用的
+		為了啟用這個阜支援使用者登入，這個欄位必須被設成 <literal>on</literal>。
+	    </para>
 	  </callout>
 
 	  <callout arearefs="co-ttys-line1col5">
-	    <para>The final field is used to specify whether the port
-	      is secure.  Marking a port as <literal>secure</literal>
-	      means that it is trusted enough to allow <systemitem
-		class="username">root</systemitem> to login from that
-	      port.  Insecure ports do not allow <systemitem
-		class="username">root</systemitem> logins.  On an
-	      insecure port, users must login from unprivileged
-	      accounts and then use <command>su</command> or a similar
-	      mechanism to gain superuser privileges, as described in
-	      <xref linkend="users-superuser"/>.  For security
-	      reasons, it is recommended to change this setting to
-	      <literal>insecure</literal>.</para>
+	    <para>
+		最後一個欄位是指定是否安全，用 <literal>secure</literal> 標記這個阜是表示
+		它是可被信任，允許 <systemitemclass="username">root</systemitem> 從那個阜登入。
+		不安全的阜不允許 <systemitemclass="username">root</systemitem> 登入。
+		在一個不安全的阜上，使用者必須從一般帳號登入，然後利用 <command>su</command> 或類似的機制來獲得超級使用者的權限，
+		如同 <xref linkend="users-superuser"/> 所描述的。為了許多安全上的考量，
+		建議將設定改成 <literal>insecure</literal>。
+	    </para>
 	  </callout>
 	</calloutlist>
       </example>
@@ -770,12 +745,11 @@ ttyu5   "/usr/libexec/getty std.19200"  vt100  on insecure</programlisting>
     </sect2>
 
     <sect2 xml:id="term-debug">
-      <title>Troubleshooting the Connection</title>
+      <title>疑難排解連線問題</title>
 
-      <para>Even with the most meticulous attention to detail,
-	something could still go wrong while setting up a terminal.
-	Here is a list of common symptoms and some suggested
-	fixes.</para>
+      <para>即使小心翼翼的注意每一個細節，設定終端時總是有可能某些東西出錯，
+	  這裡提供一個清單，列出常見的症狀跟建議的解決方法。
+	  </para>
 
       <para>如果沒有登入提示出現，確定終端機是有被接上並且上電。如果它是一個個人電腦當成終端機，確定終端模擬軟體有開啟正確的序列阜。
 	</para>
@@ -817,7 +791,7 @@ ttyu5   "/usr/libexec/getty std.19200"  vt100  on insecure</programlisting>
 
   <sect1 xml:id="dialup">
     <info>
-    <title>Dial-in Service</title>
+    <title>撥入服務</title>
 
       <authorgroup>
 	<author>
@@ -839,7 +813,7 @@ ttyu5   "/usr/libexec/getty std.19200"  vt100  on insecure</programlisting>
       </authorgroup>
     </info>
 
-    <indexterm><primary>dial-in service</primary></indexterm>
+    <indexterm><primary>撥入服務</primary></indexterm>
 
     <para>設定 &os; 系統的 dial-in 服務就像設定終端機, 除了數據機是"被用"，而不是
 	終端設備。 &os; 支援外部跟內部數據機。
@@ -862,16 +836,13 @@ ttyu5   "/usr/libexec/getty std.19200"  vt100  on insecure</programlisting>
       標準的<acronym>RS-232C</acronym> 串列線應該足夠
     </para>
 
-    <para>&os; needs the <acronym>RTS</acronym> and
-      <acronym>CTS</acronym> signals for flow control at speeds above
-      2400&nbsp;bps, the <acronym>CD</acronym> signal to detect when a
-      call has been answered or the line has been hung up, and the
-      <acronym>DTR</acronym> signal to reset the modem after a session
-      is complete.  Some cables are wired without all of the needed
-      signals, so if a login session does not go away when the line
-      hangs up, there may be a problem with the cable.  Refer to <xref
-	linkend="term-cables-null"/> for more information about these
-      signals.</para>
+    <para>&os; 需要 <acronym>RTS</acronym> 和
+      <acronym>CTS</acronym> 訊號用來控制高於 2400&nbsp;bps 速度的流量。
+	  <acronym>CD</acronym> 用來偵測當一個通話已經被答覆或者已經被掛斷。
+	  <acronym>DTR</acronym> 訊號是在一個連線會話完成後，用來重置 modem。
+	  一些纜線被並沒有接上所有的訊號線，如果掛斷了連線，一個登入會話並沒有離開，問題很可能出在纜線。
+	  想瞭解更多關於這些訊號，請參考 <xreflinkend="term-cables-null"/>。
+    </para>
 
     <para>Like other &unix;-like operating systems, &os; uses the
       hardware signals to find out when a call has been answered or a
@@ -1254,30 +1225,26 @@ AT&amp;B2&amp;W</programlisting>
 
       <itemizedlist>
 	<listitem>
-	  <para>The initial capability name specified in the entry in
-	    <filename>/etc/ttys</filename> matches the name of a
-	    capability in <filename>/etc/gettytab</filename>.</para>
+	  <para>在 <filename>/etc/ttys</filename> 該項目中可用的初始化名稱跟 <filename>/etc/gettytab</filename> 內的可用名稱一樣。
+	  </para>
 	</listitem>
 
 	<listitem>
-	  <para>Each <literal>nx=</literal> entry matches another
-	    <filename>gettytab</filename> capability name.</para>
+	  <para>每個 <literal>nx=</literal> 項目符合其他在
+	    <filename>gettytab</filename> 的可用名稱。</para>
 	</listitem>
 
 	<listitem>
-	  <para>Each <literal>tc=</literal> entry matches another
-	    <filename>gettytab</filename> capability name.</para>
+	  <para>每個 <literal>tc=</literal> 項目符合其他
+	    <filename>gettytab</filename> 的可用名稱。</para>
 	</listitem>
       </itemizedlist>
 
-      <para>If the modem on the &os; system will not answer, make
-	sure that the modem is configured to answer the phone when
-	<acronym>DTR</acronym> is asserted.  If the modem seems to be
-	configured correctly, verify that the
-	<acronym>DTR</acronym> line is asserted by checking the
-	modem's indicator lights.</para>
+      <para>如果在 &os; 系統上的 modem 沒有回應，確定當 <acronym>DTR</acronym> 生效， modem 的設定能回應電話。
+	  如果 modem 看起來有正確的被設定，檢查 modem 的 <acronym>DTR</acronym> 指示燈來確定線路是否正常。
+	  </para>
 
-      <para>如果還是不能用，描速問題，寄一封電子郵件給 &a.questions;。
+      <para>如果還是不能用，描述遇到的問題，寄一封電子郵件給 &a.questions;。
 	  </para>
     </sect2>
   </sect1>
@@ -1287,131 +1254,114 @@ AT&amp;B2&amp;W</programlisting>
 
     <indexterm><primary>dial-out service</primary></indexterm>
 
-    <para>The following are tips for getting the host to connect over
-      the modem to another computer.  This is appropriate for
-      establishing a terminal session with a remote host.</para>
+    <para>下列提示是讓主機透過 modem 連到其他電腦。這適合與遠端建立一個終端連線。
+    </para>
 
-    <para>This kind of connection can be helpful to get a file on the
-      Internet if there are problems using PPP.  If PPP is not
-      working, use the terminal session to FTP the needed file.  Then
-      use zmodem to transfer it to the machine.</para>
+    <para>如果 PPP 連線有問題，這種連線方式將非常有用來從網路取得檔案。
+	如果 PPP 不能運作，使用這種終端連線透過 FTP 取得需要的檔案。然後使用 zmodem 來傳送它到機器上。
+    </para>
 
     <sect2 xml:id="hayes-unsupported">
-      <title>Using a Stock Hayes Modem</title>
+      <title>使用 Stock Hayes Modem</title>
 
-      <para>A generic Hayes dialer is built into
-	<command>tip</command>.  Use <literal>at=hayes</literal> in
-	<filename>/etc/remote</filename>.</para>
+      <para>通用的 Hayes 撥號器<F7>已經被內建在
+	<command>tip</command>。在 <filename>/etc/remote</filename> 使用 <literal>at=hayes</literal>。
+	  </para>
 
-      <para>The Hayes driver is not smart enough to recognize some of
-	the advanced features of newer modems messages like
-	<literal>BUSY</literal>, <literal>NO DIALTONE</literal>, or
-	<literal>CONNECT 115200</literal>.  Turn those messages off
-	when using <command>tip</command> with
-	<command>ATX0&amp;W</command>.</para>
+      <para>目前 Hayes 驅動程式還不夠聰明來辨識一些新的 modem 訊息的進階功能，例如
+	<literal>BUSY</literal>、<literal>NO DIALTONE</literal>或
+	<literal>CONNECT 115200</literal>。可以用 <command>tip</command> 的 <command>ATX0&amp;W</command> 命令將這些訊息關閉。
+	 </para>
 
-      <para>The dial timeout for <command>tip</command> is 60
-	seconds.  The modem should use something less, or else
-	<command>tip</command> will think there is a communication
-	problem.  Try <command>ATS7=45&amp;W</command>.</para>
+      <para><command>tip</command> 的撥號等待時間是 60 秒，modem 應該使用少一點的時間，否則 <command>tip</command> 會認為有通訊上的問題，試試看 <command>ATS7=45&amp;W</command>。
+	  </para>
     </sect2>
 
     <sect2 xml:id="direct-at">
-      <title>Using <literal>AT</literal> Commands</title>
+      <title>使用 <literal>AT</literal> 命令</title>
 
       <indexterm>
 	<primary><filename>/etc/remote</filename></primary>
       </indexterm>
-      <para>Create a <quote>direct</quote> entry in
-	<filename>/etc/remote</filename>.  For example, if the modem
-	is hooked up to the first serial port,
-	<filename>/dev/cuau0</filename>, use the following
-	line:</para>
+      <para>在 <filename>/etc/remote</filename> 建立 <quote>direct</quote> 項目。
+	  例如：如果 modem 被掛載在第一個串列阜 <filename>/dev/cuau0</filename>，
+	  加入下面這一行：
+	  </para>
 
       <programlisting>cuau0:dv=/dev/cuau0:br#19200:pa=none</programlisting>
 
-      <para>Use the highest <acronym>bps</acronym> rate the modem
-	supports in the <literal>br</literal> capability.  Then, type
-	<command>tip cuau0</command> to connect to the modem.</para>
+      <para>在 <literal>br</literal> 屬性上使用 modem 支援的最高 <acronym>bps</acronym> 速率。然後，輸入
+	  <command>tip cuau0</command> 來連結 modem。
+	  </para>
 
-      <para>Or, use <command>cu</command> as <systemitem
-	  class="username">root</systemitem> with the following
-	      command:</para>
+      <para>或者，用 <systemitem class="username">root</systemitem> 執行 <command>cu</command>，如下：
+	  </para>
 
       <screen>&prompt.root; <userinput>cu -l<replaceable>line</replaceable> -s<replaceable>speed</replaceable></userinput></screen>
 
-      <para><replaceable>line</replaceable> is the serial port, such
-	as <filename>/dev/cuau0</filename>, and
-	<replaceable>speed</replaceable> is the speed, such as
-	<literal>57600</literal>.  When finished entering the AT
-	commands, type <command>~.</command> to exit.</para>
+      <para><replaceable>line</replaceable> 是串列阜，例如
+	<filename>/dev/cuau0</filename>。
+	<replaceable>speed</replaceable> 是速度，例如
+	<literal>57600</literal>。 當完成輸入 AT 命令，輸入 <command>~.</command> 來離開。
+	 </para>
     </sect2>
 
     <sect2 xml:id="gt-failure">
       <title>The <literal>@</literal> Sign Does Not Work</title>
 
-      <para>The <literal>@</literal> sign in the phone number
-	capability tells <command>tip</command> to look in
-	<filename>/etc/phones</filename> for a phone number.  But, the
-	<literal>@</literal> sign is also a special character in
-	capability files like <filename>/etc/remote</filename>, so it
-	needs to be escaped with a backslash:</para>
+      <para>The <literal>@</literal> 在電話號碼中是用來告訴
+	  <command>tip</command> 在 <filename>/etc/phones</filename> 找到電話號碼，但是，<literal>@</literal>
+	  符號也是一種檔案中的特殊字元，例如 <filename>/etc/remote</filename>，所以它需要用反斜線來跳脫：
+	  </para>
 
       <programlisting>pn=\@</programlisting>
     </sect2>
 
     <sect2 xml:id="dial-command-line">
-      <title>Dialing from the Command Line</title>
+      <title>從命令列撥號</title>
 
-      <para>Put a <quote>generic</quote> entry in
-	<filename>/etc/remote</filename>.  For example:</para>
+      <para>放一個 <quote>通用</quote> 項目在
+	<filename>/etc/remote</filename>。  舉個例：</para>
 
       <programlisting>tip115200|Dial any phone number at 115200 bps:\
         :dv=/dev/cuau0:br#115200:at=hayes:pa=none:du:
 tip57600|Dial any phone number at 57600 bps:\
         :dv=/dev/cuau0:br#57600:at=hayes:pa=none:du:</programlisting>
 
-      <para>This should now work:</para>
+      <para>現在應該可以運作了：</para>
 
       <screen>&prompt.root; <userinput>tip -115200 5551234</userinput></screen>
 
-      <para>Users who prefer <command>cu</command> over
-	<command>tip</command>, can use a generic
-	<literal>cu</literal> entry:</para>
+      <para>對於偏好使用 <command>cu</command> 超過
+	<command>tip</command>的使用者，可以使用通用的 <literal>cu</literal> 項目：
+	  </para>
 
       <programlisting>cu115200|Use cu to dial any number at 115200bps:\
         :dv=/dev/cuau1:br#57600:at=hayes:pa=none:du:</programlisting>
 
-      <para>and type:</para>
+      <para>然後輸入：</para>
 
       <screen>&prompt.root; <userinput>cu 5551234 -s 115200</userinput></screen>
     </sect2>
 
     <sect2 xml:id="set-bps">
-      <title>Setting the <acronym>bps</acronym> Rate</title>
+      <title>設定 <acronym>bps</acronym> 速率</title>
 
-      <para>Put in an entry for <literal>tip1200</literal> or
-	<literal>cu1200</literal>, but go ahead and use whatever
-	<acronym>bps</acronym> rate is appropriate with the
-	<literal>br</literal> capability.
-	<command>tip</command> thinks a good default is 1200&nbsp;bps
-	which is why it looks for a <literal>tip1200</literal> entry.
-	1200&nbsp;bps does not have to be used, though.</para>
+      <para>替 <literal>tip1200</literal> 或 <literal>cu1200</literal> 放一個項目，使用任何的 <acronym>bps</acronym> 速率對 <literal>br</literal> 都是適合的。
+	  <command>tip</command> 認為預設好的預設值是 1200&nbsp;bps，這也是為什麼有 <literal>tip1200</literal> 項目的原因，雖然，不見得需要使用1200&nbsp;bps。
+	  </para>
     </sect2>
 
     <sect2 xml:id="terminal-server">
       <title>Accessing a Number of Hosts Through a Terminal
 	Server</title>
 
-      <para>Rather than waiting until connected and typing
-	<command>CONNECT <replaceable>host</replaceable></command>
-	each time, use <command>tip</command>'s <literal>cm</literal>
-	capability.  For example, these entries in
-	<filename>/etc/remote</filename> will let you type
-	<command>tip pain</command> or <command>tip muffin</command>
-	to connect to the hosts <systemitem>pain</systemitem> or
-	<systemitem>muffin</systemitem>, and <command>tip
-	  deep13</command> to connect to the terminal server.</para>
+      <para>無需每一次都要等到連上才能輸入 <command>CONNECT <replaceable>host</replaceable></command>，
+	  可透過 <command>tip</command>'s <literal>cm</literal> 功能，
+	舉個例，這些在 <filename>/etc/remote</filename> 
+	的項目讓你輸入 <command>tip pain</command> 或者 <command>tip muffin</command> 來連接主機 <systemitem>pain</systemitem> 或者 <systemitem>muffin</systemitem>,
+	和輸入 <command>tip deep13</command> 連接終端伺服器。</para>
+      </para>
 
       <programlisting>pain|pain.deep13.com|Forrester's machine:\
         :cm=CONNECT pain\n:tc=deep13:
@@ -1426,31 +1376,27 @@ deep13:Gizmonics Institute terminal server:\
       <title>Using More Than One Line with
 	<command>tip</command></title>
 
-      <para>This is often a problem where a university has several
-	modem lines and several thousand students trying to use
-	them.</para>
+      <para>這是一個常見問題，當一個大學有好幾個 modem 線路，同時數千個學生正在嘗試使用他們。
+	  </para>
 
-      <para>Make an entry in <filename>/etc/remote</filename> and use
-	<literal>@</literal> for the <literal>pn</literal>
-	capability:</para>
+      <para>建立一個項目在 <filename>/etc/remote</filename>，在 <literal>pn</literal> 功能上使用 <literal>@</literal>：
+	  </para>
 
       <programlisting>big-university:\
         :pn=\@:tc=dialout
 dialout:\
         :dv=/dev/cuau3:br#9600:at=courier:du:pa=none:</programlisting>
 
-      <para>Then, list the phone numbers in
-	<filename>/etc/phones</filename>:</para>
+      <para>然後，列出在 <filename>/etc/phones</filename> 的電話號碼：</para>
 
       <programlisting>big-university 5551111
 big-university 5551112
 big-university 5551113
 big-university 5551114</programlisting>
 
-      <para><command>tip</command> will try each number in the listed
-	order, then give up.  To keep retrying, run
-	<command>tip</command> in a <literal>while</literal>
-	loop.</para>
+      <para><command>tip</command> 將按照順序嘗試每一個上列的電話號碼，然後放棄。為了繼續重複嘗試，執行
+	  可以用 <literal>while</literal> 迴圈執行 <command>tip</command>。
+	  </para>
     </sect2>
 
     <sect2 xml:id="multi-controlp">
@@ -1459,7 +1405,7 @@ big-university 5551114</programlisting>
       <para><keycombo action="simul">
 	  <keycap>Ctrl</keycap>
 	  <keycap>P</keycap>
-	</keycombo> is the default <quote>force</quote> character,
+	</keycombo> 預設是 <quote>force</quote> 字元，用來告訴 <command>tip</command> 下一個字元是 literal data。
 	used to tell <command>tip</command> that the next character is
 	literal data.  The force character can be set to any other
 	character with the <command>~s</command> escape, which means
@@ -1527,13 +1473,11 @@ raisechar=^^</programlisting>
     </sect2>
 
     <sect2 xml:id="tip-filetransfer">
-      <title>File Transfers with <command>tip</command></title>
+      <title>用<command>tip</command>傳檔案</title>
 
-      <para>When talking to another &unix;-like operating system,
-	files can be sent and received using <command>~p</command>
-	(put) and <command>~t</command> (take).  These commands run
-	<command>cat</command> and <command>echo</command> on the
-	remote system to accept and send files.  The syntax is:</para>
+      <para>當與其他 &unix;-like 作業系統通訊時，可以用 <command>~p</command> (put) 和 <command>~t</command> (take) 來傳送和接收檔案，
+	這些指令執行在遠端系統上執行 <command>cat</command> and <command>echo</command> 來接受和傳送檔案。語法如下：
+	  </para>
 
       <cmdsynopsis>
 	<command>~p</command>
@@ -1547,13 +1491,13 @@ raisechar=^^</programlisting>
 	<arg choice="opt">local-file</arg>
       </cmdsynopsis>
 
-      <para>There is no error checking, so another protocol, like
-	zmodem, should probably be used.</para>
+      <para>因為沒有錯誤檢查機制，或許應該使用其他協定例如 zmodem。
+	  </para>
     </sect2>
 
     <sect2 xml:id="zmodem-tip">
-      <title>Using <application>zmodem</application> with
-	<command>tip</command>?</title>
+      <title>如何使用 <command>tip</command> tip 執行 <application>zmodem</application>？
+	　</title>
 
       <para>為了收到檔案，在遠端執行一個傳送程式。然後在本機端輸入 <command>~C rz</command> 來接收他們。
 	  </para>
@@ -1607,51 +1551,49 @@ raisechar=^^</programlisting>
 	  本節提供一個串列終端的快速概要。這步驟可以用在當 dumb 終端連接到 <filename>COM1</filename> 時。
 	  </para>
       <procedure>
-	<title>Configuring a Serial Console on
+	<title>在 COM1 設定串列控制台
 	  <filename>COM1</filename></title>
 
 	<step>
-	  <para>Connect the serial cable to
-	    <filename>COM1</filename> and the controlling
-	    terminal.</para>
+	  <para>接上串列纜線到
+	    <filename>COM1</filename>來控制終端。
+	  </para>
 	</step>
 
 	<step>
-	  <para>To configure boot messages to display on the serial
-	    console, issue the following command as the
-	    superuser:</para>
+	  <para>設定在串列控制台上顯示開機訊息，使用超級使用者來執行下列指令：
+	  </para>
 
 	  <screen>&prompt.root; echo 'console="comconsole"' &gt;&gt; /boot/loader.conf</screen>
 	</step>
 
 	<step>
-	  <para>編輯 <filename>/etc/ttys</filename> and change
-	    <literal>off</literal> to <literal>on</literal> and
-	    <literal>dialup</literal> to <literal>vt100</literal> for
-	    the <filename>ttyu0</filename> entry.  Otherwise, a
-	    password will not be required to connect via the serial
-	    console, resulting in a potential security hole.</para>
+	  <para>編輯 <filename>/etc/ttys</filename>，將 <filename>ttyu0</filename> 項目中的
+	    <literal>off</literal> 改成 <literal>on</literal>，
+	    <literal>dialup</literal> 改成 <literal>vt100</literal>
+	    。否則，從串列控制台將不會要求輸入密碼，反而造成潛在的安全漏洞。
+	  </para>
 	</step>
 
 	<step>
-	  <para>Reboot the system to see if the changes took
-	    effect.</para>
+	  <para>重新啟動系統來看是否設定生效
+	  </para>
 	</step>
 
       </procedure>
 
-      <para>If a different configuration is required, see the next
-	section for a more in-depth configuration explanation.</para>
+      <para>如果需要不同的設定，下一節將有更入的設定說明
+	  </para>
     </sect2>
 
     <sect2 xml:id="serialconsole-howto">
-      <title>In-Depth Serial Console Configuration</title>
+      <title>深入的串列控制台設定</title>
 
       <para>這節提供關於在 &os; 設定串列 console 比較細部的解釋。
 	  </para>
 
       <procedure>
-	<title>Configuring a Serial Console</title>
+	<title>設定串列控制台</title>
 
 	<step>
 	  <para>準備一條串列纜線</para>
@@ -1699,7 +1641,7 @@ raisechar=^^</programlisting>
 	</step>
 
 	<step>
-	  <para>插上 dumb terminal, an old computer with a modem
+	  <para>插上 dumb 終端， an old computer with a modem
 	    program, or the serial port on another &unix; box into the
 	    serial port.</para>
 	</step>
@@ -1723,6 +1665,7 @@ raisechar=^^</programlisting>
 
 	      <listitem>
 		<para>
+		切換內部或串列控制台。這個參數可用來切換控制台裝置。舉個例，為了從內部（video）控制台開機，
 		Toggles between the internal and serial
 		  consoles.  Use this to switch console devices.  For
 		  instance, to boot from the internal (video) console,
@@ -1739,7 +1682,7 @@ raisechar=^^</programlisting>
 	      <term><option>-D</option></term>
 
 	      <listitem>
-		<para>Toggles between the single and dual console
+		<para>切換單一或雙控制台設定。Toggles between the single and dual console
 		  configurations.  In the single configuration, the
 		  console will be either the internal console (video
 		  display) or the serial port, depending on the state
