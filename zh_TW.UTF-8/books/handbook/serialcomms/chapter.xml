@@ -177,7 +177,7 @@
       </table>
 
       <table frame="none" pgwide="1" xml:id="nullmodem-db25">
-	<title>DB-25 to DB-25 Null-Modem Cable</title>
+	<title>DB-25 to DB-25 Null-Modem 纜線</title>
 
 	<tgroup cols="5">
 	  <thead>
@@ -447,10 +447,8 @@
       </table>
 
       <note>
-	<para>When one pin at one end connects to a pair of pins at
-	  the other end, it is usually implemented with one short wire
-	  between the pair of pins in their connector and a long wire
-	  to the other single pin.</para>
+	<para>當一個接頭的腳位連接到另一接頭上配對的腳位，它通常是用短線連接起來；長線用來連接到其他單一腳位。
+	</para>
       </note>
 
       <para>串列阜是資料在 &os; 主機電腦和終端傳輸經過的設備。存在好幾種串列阜，在購買或打造一條纜線之前，確定它能適合終端和&os;系統上的串列阜。
@@ -640,10 +638,8 @@
       <varlistentry>
 	<term>X Terminals</term>
 	<listitem>
-	  <para>X terminals 是可取得終端中算是比較複雜的。are the most sophisticated kind of
-	    terminal available.  相較於連到串列阜，Instead of connecting to a serial
-	    port, they usually connect to a network like Ethernet.
-	    相較於只能顯示文字的程式，他們可以顯示任何<application>&xorg;</application>程式。i
+	  <para>X terminals 是可取得終端中較複雜的。不像連接到串列阜，它們通常連接到網路，例如 Ethernet。不僅僅能顯示文字型的應用程式，
+	  他們還可以顯示任何 <application>&xorg;</application> 的應用程式。
 	</para>
 
 	  <para>本章不包涵 X 終端的建立、設定與使用。</para>
@@ -844,102 +840,65 @@ ttyu5   "/usr/libexec/getty std.19200"  vt100  on insecure</programlisting>
 	  想瞭解更多關於這些訊號，請參考 <xreflinkend="term-cables-null"/>。
     </para>
 
-    <para>Like other &unix;-like operating systems, &os; uses the
-      hardware signals to find out when a call has been answered or a
-      line has been hung up and to hangup and reset the modem after a
-      call.  &os; avoids sending commands to the modem or watching for
-      status reports from the modem.</para>
+    <para>
+	 如其他 &unix;-like 作業系統，&os; 使用硬體訊號來發現一個通話已經被回應、掛斷，或者是在通話結束後，掛斷通話或重置 modem。
+	 &os; 避免送命令到 modem 或監看 modem 送來的狀態。
+    </para>
 
-    <para>&os; supports the <acronym>NS8250</acronym>,
-      <acronym>NS16450</acronym>, <acronym>NS16550</acronym>, and
+    <para>&os; 支援 <acronym>NS8250</acronym>,
+      <acronym>NS16450</acronym>, <acronym>NS16550</acronym> 和
       <acronym>NS16550A</acronym>-based <acronym>RS-232C</acronym>
-      (<acronym>CCITT</acronym> V.24) communications interfaces.  The
-      8250 and 16450 devices have single-character buffers.  The 16550
-      device provides a 16-character buffer, which allows for better
-      system performance.  Bugs in plain 16550 devices prevent the use
-      of the 16-character buffer, so use 16550A devices if possible.
-      Because single-character-buffer devices require more work by the
-      operating system than the 16-character-buffer devices,
-      16550A-based serial interface cards are preferred.  If the
-      system has many active serial ports or will have a heavy load,
-      16550A-based cards are better for low-error-rate
-      communications.</para>
+      (<acronym>CCITT</acronym> V.24) 通訊介面。
+      8250 和 16450 設備有單一字元緩衝區。
+	  16550 設備提供一個 16 字元緩衝區，這是為了得到較好的系統效能。
+　　　在 16550 設備上的 16 字元緩衝區有一些瑕疵，盡可能使用 16550A 設備。
+　　　因為單一字元緩衝區比16 字元緩衝區在作業系統上需要多一點功夫，建議使用 16550A 式的串列介面卡。
+	　如果系統已經有許多活動中的串列阜或者負載很高，16550A 式介面卡對於低錯誤率的通訊比較好。
+     </para>
 
-    <para>The rest of this section demonstrates how to configure a
-      modem to receive incoming connections, how to communicate with
-      the modem, and offers some troubleshooting tips.</para>
+    <para>這一章節剩下的部份展示如何設定 modem 來接受連入的連線、如何與 modem 通訊
+	以及提供一些故障排除的提示。
+    </para>
 
     <sect2 xml:id="dialup-ttys">
-      <title>Modem Configuration</title>
+      <title>Modem 設定</title>
 
       <indexterm><primary>getty</primary></indexterm>
-      <para>As with terminals, <command>init</command> spawns a
-	<command>getty</command> process for each configured serial
-	port used for dial-in connections.  When a user dials the
-	modem's line and the modems connect, the <quote>Carrier
-	  Detect</quote> signal is reported by the modem.  The kernel
-	notices that the carrier has been detected and instructs
-	<command>getty</command> to open the port and display a
-	<prompt>login:</prompt> prompt at the specified initial line
-	speed.  In a typical configuration, if garbage characters are
-	received, usually due to the modem's connection speed being
-	different than the configured speed, <command>getty</command>
-	tries adjusting the line speeds until it receives reasonable
-	characters.  After the user enters their login name,
-	<command>getty</command> executes <command>login</command>,
-	which completes the login process by asking for the user's
-	password and then starting the user's shell.</para>
+      <para>以終端來說terminals，<command>init</command> 為每一個為撥入連線設定好的串列阜產生一個 <command>getty</command> 程序，
+		當一個使用者成功撥上 modem，modem 會發出 <quote>Carrier Detect</quote> 訊號。核心將偵測到媒介，
+		並命令 <command>getty</command> 打開一個阜，在指定的速率下顯示 <prompt>login:</prompt>。
+		如果收到垃圾字元，通常是 model 與設定的速率不匹配，<command>getty</command> 會場是調整速率直到收到適當的字元。
+		在使用者輸入他們的登入名稱後，<command>getty</command> 執行 <command>login</command> 來訊問使用者的密碼，完成登入的流程，
+		然後啟動使用者的 shell。
+	  </para>
 
       <indexterm>
 	<primary><command>/usr/bin/login</command></primary>
       </indexterm>
 
-      <para>There are two schools of thought regarding dial-up modems.
-	One confiuration method is to set the modems and systems so
-	that no matter at what speed a remote user dials in, the
-	dial-in <acronym>RS-232</acronym> interface runs at a locked
-	speed.  The benefit of this configuration is that the remote
-	user always sees a system login prompt immediately.  The
-	downside is that the system does not know what a user's true
-	data rate is, so full-screen programs like
-	<application>Emacs</application> will not adjust their
-	screen-painting methods to make their response better for
-	slower connections.</para>
+      <para>關於撥上 modem，有兩派想法。一派是設定 modem 和系統，不管使用者用何種速率撥入，
+	　撥入的 <acronym>RS-232</acronym> 將在一個固定速度下通訊。
+	  這樣做的好處是遠端的使用者總是可以馬上看到系統登入的提示，不好的地方是系統不知道使用者真實的
+	  資料速率，這樣將使全螢幕的應用程式，如 <application>Emacs</application> 將不能在較慢的連線時，調整螢幕顯示方法來取得較好的回應時間。
+	  </para>
 
-      <para>The second method is to configure the
-	<acronym>RS-232</acronym> interface to vary its speed based on
-	the remote user's connection speed.  Because
-	<command>getty</command> does not understand any particular
-	modem's connection speed reporting, it gives a
-	<prompt>login:</prompt> message at an initial speed and
-	watches the characters that come back in response.  If the
-	user sees junk, they should press <keycap>Enter</keycap> until
-	they see a recognizable prompt.  If the data rates do not
-	match, <command>getty</command> sees anything the user types
-	as junk, tries the next speed, and gives the
-	<prompt>login:</prompt> prompt again.  This procedure normally
-	only takes a keystroke or two before the user sees a good
-	prompt.  This login sequence does not look as clean as the
-	locked-speed method, but a user on a low-speed connection
-	should receive better interactive response from full-screen
-	programs.</para>
+      <para>另一派是設定 <acronym>RS-232</acronym> 介面隨著遠端使用者的連線速度變化。
+	  因為 <command>getty</command> 並不曉得任何 modem 的連線速度報告訊息，它基於初始速度送出 <prompt>login:</prompt> 然後等待回應字元。
+	  如果使用者看到亂碼，他們應該壓住 <keycap>Enter</keycap> 直到看到可識別的提示。如果資料速率沒有匹配，
+	  <command>getty</command> 將視使用者的任何輸入為垃圾，然後嘗試下一個速度，再次送出 <prompt>login:</prompt> 提示。
+	  正常情況下，這個步驟重複一到兩次，使用者就能看到正確的訊息。這個登入的順序看起來不像固定速度方法那樣乾淨，但是一個低速連線的使用者在
+	  全螢幕程式下可能得到叫好得互動回應。
+	  </para>
 
-      <para>When locking a modem's data communications rate at a
-	particular speed, no changes to
-	<filename>/etc/gettytab</filename> should be needed.  However,
-	for a matching-speed configuration, additional entries may be
-	required in order to define the speeds to use for the modem.
-	This example configures a 14.4&nbsp;Kbps modem with a top
-	interface speed of 19.2&nbsp;Kbps using 8-bit, no parity
-	connections.  It configures <command>getty</command> to start
-	the communications rate for a V.32bis connection at
-	19.2&nbsp;Kbps, then cycles through 9600&nbsp;bps,
-	2400&nbsp;bps, 1200&nbsp;bps, 300&nbsp;bps, and back to
-	19.2&nbsp;Kbps.  Communications rate cycling is implemented
-	with the <literal>nx=</literal> (next table) capability.  Each
-	line uses a <literal>tc=</literal> (table continuation) entry
-	to pick up the rest of the settings for a particular data
-	rate.</para>
+      <para>當鎖定 modem 的資料通訊速率在一個特殊的速度，
+	  不需要改 <filename>/etc/gettytab</filename>。
+	  然後，為了匹配速度，可能需要額外的項目來定義使用該 modem 的速度。
+	  這個範例設定了一個 14.4&nbsp;Kbps modem 與一個使用 8-bit，no parity，最高速度 19.2&nbsp;Kbps 的介面連線，
+	  它設定 <command>getty</command> 來啟動 V.32通訊速率在 19.2&nbsp;Kbps，然後從 9600&nbsp;bps、2400&nbsp;bps、1200&nbsp;bps、300&nbsp;bps 
+	  循環，最後回到 19.2&nbsp;Kbps。
+	  速率循環定義在 <literal>nx=</literal> (next table) 屬性。每一行使用 <literal>tc=</literal> (table continuation)，
+	　來補足剩下特殊的資料速率。
+	  </para>
 
       <programlisting>#
 # Additions for a V.32bis Modem
@@ -974,10 +933,9 @@ vp|VH9600|Very High Speed Modem at 9600,8-bit:\
 vq|VH57600|Very High Speed Modem at 57600,8-bit:\
         :nx=VH9600:tc=std.57600:</programlisting>
 
-      <para>For a slow <acronym>CPU</acronym> or a heavily loaded
-	system without 16550A-based serial ports, this configuration
-	may produce <errorname>sio</errorname>
-	<quote>silo</quote> errors at 57.6&nbsp;Kbps.</para>
+      <para>慢速 <acronym>CPU</acronym> 或高負載的系統若沒有 16550A 式串列阜，這個設定在 57.6&nbsp;Kbps 
+	  可能產生 <errorname>sio</errorname><quote>silo</quote> 錯誤。
+	  </para>
 
       <indexterm>
 	<primary><filename>/etc/ttys</filename></primary>
